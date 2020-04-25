@@ -1,7 +1,7 @@
 <template>
   <client-only placeholder="Loading...">
     <bracket :rounds="rounds">
-      <template v-slot:default="player">
+      <template #player="{ player }">
         {{ player.name }}
       </template>
     </bracket>
