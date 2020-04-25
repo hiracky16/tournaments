@@ -22,7 +22,8 @@
     "core-js": "2",
     "firebase": "^7.14.2",
     "nuxt": "^2.0.0",
-    "nuxt-property-decorator": "^2.7.2"
+    "nuxt-property-decorator": "^2.7.2",
+    "vue-tournament-bracket": "^2.0.1"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.0",
