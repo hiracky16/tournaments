@@ -16,13 +16,9 @@
         >
           Documentation
         </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+        <nuxt-link to="/login">
+          ログインへ
+        </nuxt-link>
       </div>
     </div>
   </div>

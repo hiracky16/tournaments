@@ -28,6 +28,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/firebase'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -67,6 +68,9 @@ export default {
     ** You can extend webpack config here
     */
     extend (config: any, ctx: any) {
+      config.node = {
+        fs: 'empty'
+      }
     }
   }
 }
