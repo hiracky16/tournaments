@@ -22,12 +22,14 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component } from 'nuxt-property-decorator'
+import { Component, namespace } from 'nuxt-property-decorator'
 import firebase from '@/plugins/firebase'
+
+const TournamentStore = namespace('tournaments')
 
 @Component({
   components: {},
-  async asyncData ({ params }) {
+  async fetch ({ store }) {
     const tournaments: { [key: string]: string }[] = []
     await firebase
       .firestore()
@@ -38,10 +40,12 @@ import firebase from '@/plugins/firebase'
           tournaments.push({ id: doc.id, name: doc.data()?.name })
         })
       })
-    return { tournaments }
+    store.dispatch('tournaments/setTournaments', tournaments)
   }
 })
 export default class Tournament extends Vue {
+  @TournamentStore.Getter('tournaments')
+  tournaments!: Tournament[]
 }
 </script>
 
