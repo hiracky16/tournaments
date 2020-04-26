@@ -20,7 +20,7 @@ export default class Tournament extends Vue {
         games: [
           {
             player1: { id: '1', name: 'Competitor 1' },
-            player2: { id: '4', name: 'Competitor 4', winner: true }
+            player2: { id: '4', name: 'Competitor 4' }
           },
           {
             player1: { id: '5', name: 'Competitor 5', winner: false },
@@ -32,7 +32,7 @@ export default class Tournament extends Vue {
           },
           {
             player1: { id: '5', name: 'Competitor 5', winner: false },
-            player2: { id: '8', name: 'Competitor 8', winner: true }
+            player2: { }
           }
         ]
       },
@@ -44,7 +44,7 @@ export default class Tournament extends Vue {
           },
           {
             player1: { },
-            player2: { id: '8', name: 'Competitor 8', winner: true }
+            player2: { }
           }
         ]
       },
