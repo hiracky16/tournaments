@@ -19,10 +19,13 @@
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/bulma": "^1.2.1",
     "@nuxtjs/dotenv": "^1.4.0",
+    "@nuxtjs/style-resources": "^1.0.0",
     "core-js": "2",
     "firebase": "^7.14.2",
+    "node-sass": "^4.14.0",
     "nuxt": "^2.0.0",
     "nuxt-property-decorator": "^2.7.2",
+    "sass-loader": "^8.0.2",
     "vue-tournament-bracket": "^2.0.1"
   },
   "devDependencies": {

@@ -1,23 +1,15 @@
 <template>
   <div class="container">
     <div>
-      <logo />
       <h1 class="title">
-        akb_test
+        アイドルトーナメント（仮）
       </h1>
       <h2 class="subtitle">
-        My geometric Nuxt.js project
+        トーナメント形式で一番を決める
       </h2>
       <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <nuxt-link to="/login">
-          ログインへ
+        <nuxt-link class="button--green" to="/login">
+          始める
         </nuxt-link>
       </div>
     </div>
@@ -26,13 +18,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Logo from '~/components/Logo.vue'
+import { Component } from 'nuxt-property-decorator'
 
-export default Vue.extend({
-  components: {
-    Logo
-  }
-})
+@Component({})
+export default class Index extends Vue {}
 </script>
 
 <style>

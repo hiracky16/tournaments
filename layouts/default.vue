@@ -1,8 +1,24 @@
 <template>
   <div>
+    <Header />
     <nuxt />
+    <Footer />
   </div>
 </template>
+
+<script lang="ts">
+import Vue from 'vue'
+import { Component } from 'nuxt-property-decorator'
+import Header from '~/components/header.vue'
+import Footer from '~/components/footer.vue'
+
+@Component({
+  components: { Header, Footer }
+})
+export default class Layout extends Vue {
+}
+
+</script>
 
 <style>
 html {
