@@ -19,7 +19,7 @@ export default class Tournament extends Vue {
       {
         games: [
           {
-            player1: { id: '1', name: 'Competitor 1', winner: false },
+            player1: { id: '1', name: 'Competitor 1' },
             player2: { id: '4', name: 'Competitor 4', winner: true }
           },
           {

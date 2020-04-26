@@ -8,8 +8,13 @@
         トーナメント形式で一番を決める
       </h2>
       <div class="links">
+        <nuxt-link class="button--green" to="/login?mode=signin">
+          登録
+        </nuxt-link>
+      </div>
+      <div class="links">
         <nuxt-link class="button--green" to="/login">
-          始める
+          ログイン
         </nuxt-link>
       </div>
     </div>
@@ -21,10 +26,12 @@ import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
 
 @Component({})
-export default class Index extends Vue {}
+export default class Index extends Vue {
+
+}
 </script>
 
-<style>
+<style lang="scss" scoped>
 .container {
   margin: 0 auto;
   min-height: 100vh;
