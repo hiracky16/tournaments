@@ -7,9 +7,12 @@
       <h2 class="subtitle">
         トーナメント形式で一番を決める
       </h2>
-      <div class="links" @click="twitterLogin">
-        Twitterログイン
-      </div>
+      <button
+        class="button is-primary"
+        @click="twitterLogin"
+      >
+        ログイン
+      </button>
     </div>
   </div>
 </template>
