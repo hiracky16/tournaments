@@ -1,4 +1,5 @@
 import { ActionTree, GetterTree, MutationTree } from 'vuex'
+import firebase from '@/plugins/firebase'
 
 interface Tournament {
   id: string
@@ -28,7 +29,17 @@ export const mutations: MutationTree<RootState> = {
 }
 
 export const actions: ActionTree<RootState, RootState> = {
-  setTournaments ({ commit }, tournaments: Tournament[]) {
+  async fetchTournaments ({ commit }) {
+    const tournaments: { [key: string]: string }[] = []
+    await firebase
+      .firestore()
+      .collection('tournaments')
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          tournaments.push({ id: doc.id, name: doc.data()?.name })
+        })
+      })
     commit(SET_TOURNAMENTS, tournaments)
   }
 }
