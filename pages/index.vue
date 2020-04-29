@@ -7,15 +7,8 @@
       <h2 class="subtitle">
         トーナメント形式で一番を決める
       </h2>
-      <div class="links">
-        <nuxt-link class="button--green" to="/login?mode=signin">
-          登録
-        </nuxt-link>
-      </div>
-      <div class="links">
-        <nuxt-link class="button--green" to="/login">
-          ログイン
-        </nuxt-link>
+      <div class="links" @click="twitterLogin">
+        Twitterログイン
       </div>
     </div>
   </div>
@@ -23,11 +16,25 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component } from 'nuxt-property-decorator'
+import { Component, namespace } from 'nuxt-property-decorator'
+
+const UserStore = namespace('users')
 
 @Component({})
 export default class Index extends Vue {
+  @UserStore.Action('login')
+  login!: () => void
 
+  async twitterLogin () {
+    try {
+      console.log('test')
+      await this.login()
+    } catch (error) {
+      console.log(error)
+    } finally {
+      this.$router.push('user')
+    }
+  }
 }
 </script>
 

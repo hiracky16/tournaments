@@ -7,12 +7,12 @@
             <div class="media">
               <div class="media-left">
                 <figure class="image is-48x48">
-                  <img src="~/assets/logo.png" alt="Placeholder image">
+                  <img :src="image" alt="Placeholder image">
                 </figure>
               </div>
               <div class="media-content">
                 <p class="title is-4">
-                  John Smith
+                  {{ name }}
                 </p>
                 <p class="subtitle is-6">
                   @johnsmith
@@ -36,6 +36,9 @@
         <button class="button is-primary is-medium" @click="toTournamentList">
           新しいトーナメントを探す
         </button>
+        <button class="button is-primary is-medium" @click="twitterLogout">
+          ログアウト
+        </button>
       </div>
     </section>
     <TournamentList :tournaments="tournaments" />
@@ -49,6 +52,7 @@ import firebase from '@/plugins/firebase'
 import TournamentList from '~/components/TournamentList.vue'
 
 const TournamentStore = namespace('tournaments')
+const UserStore = namespace('users')
 
 @Component({
   components: {
@@ -72,8 +76,22 @@ export default class TournamentsPage extends Vue {
   @TournamentStore.Getter('tournaments')
   tournaments!: { [key: string]: string }[]
 
+  @UserStore.Action('logout')
+  logout!: () => void
+
+  @UserStore.Getter('name')
+  name!: string
+
+  @UserStore.Getter('image')
+  image!: string
+
   toTournamentList () {
     this.$router.push('tournaments')
+  }
+
+  async twitterLogout () {
+    await this.logout()
+    this.$router.push('/')
   }
 }
 </script>
