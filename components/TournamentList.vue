@@ -10,7 +10,7 @@
             v-for="tournament in tournaments"
             :key="tournament.id"
           >
-            <nuxt-link class="panel-block" :to="`tournaments/${tournament.id}`">
+            <nuxt-link class="panel-block" :to="`tournament/${tournament.id}`">
               {{ tournament.name }}
             </nuxt-link>
           </div>
