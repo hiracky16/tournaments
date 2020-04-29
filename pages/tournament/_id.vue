@@ -1,11 +1,16 @@
 <template>
-  <client-only placeholder="Loading...">
-    <bracket :rounds="rounds">
-      <template #player="{ player }">
-        {{ player.name }}
-      </template>
-    </bracket>
-  </client-only>
+  <div>
+    <client-only placeholder="Loading...">
+      <bracket :rounds="rounds">
+        <template #player="{ player }">
+          {{ player.name }}
+        </template>
+      </bracket>
+    </client-only>
+    <nuxt-link to="/tournaments">
+      トーナメント一覧へ戻る
+    </nuxt-link>
+  </div>
 </template>
 
 <script lang="ts">
@@ -13,7 +18,7 @@ import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
 
 @Component({})
-export default class Tournament extends Vue {
+export default class TournamentDetail extends Vue {
   get rounds () {
     return [
       {
