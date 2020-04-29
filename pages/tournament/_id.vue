@@ -1,23 +1,20 @@
 <template>
   <div>
-    <client-only placeholder="Loading...">
-      <bracket :rounds="rounds">
-        <template #player="{ player }">
-          {{ player.name }}
-        </template>
-      </bracket>
-    </client-only>
-    <nuxt-link to="/tournaments">
-      トーナメント一覧へ戻る
+    <nuxt-link to="/tournaments" class="link-back">
+      ←トーナメント一覧へ戻る
     </nuxt-link>
+    <TournamentCard :rounds="rounds" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
+import TournamentCard from '~/components/TournamentCard.vue'
 
-@Component({})
+@Component({
+  components: { TournamentCard }
+})
 export default class TournamentDetail extends Vue {
   get rounds () {
     return [
@@ -65,3 +62,11 @@ export default class TournamentDetail extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .link-back {
+    color: #333;
+    display: inline-block;
+    margin-bottom: 16px;
+  }
+</style>

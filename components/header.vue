@@ -3,7 +3,8 @@
     <header>
       <nuxt-link to="/">
         <h1>
-          <img src="~/assets/logo.png" width="200px">
+          <!-- <img src="~/assets/logo.png" width="200px"> -->
+          Idol Tournament
         </h1>
       </nuxt-link>
       <nav>
@@ -33,13 +34,13 @@ export default class Header extends Vue {}
 
 <style lang="scss" scoped>
 header {
-  color: #fff;
   padding: 20px;
-  background-color: #527b8e;
+  text-align: center;
   h1 {
-    color: #fff;
+    color: #858585;
+    font-size: 32px;
     a {
-      color: #fff;
+      color: #333;
     }
   }
 }
