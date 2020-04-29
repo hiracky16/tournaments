@@ -1,7 +1,6 @@
 <template>
   <div>
     <TournamentList :tournaments="tournaments" />
-    <nuxt-child />
   </div>
 </template>
 
