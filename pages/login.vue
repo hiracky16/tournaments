@@ -65,7 +65,7 @@ export default class Login extends Vue {
       .createUserWithEmailAndPassword(this.email, this.password)
       .then(() => {
         this.$nuxt.$loading.finish()
-        this.$router.push('tournament')
+        this.$router.push('user')
       })
   }
 
@@ -77,7 +77,7 @@ export default class Login extends Vue {
       .then((res: any) => {
         console.log(res)
         this.$nuxt.$loading.finish()
-        this.$router.push('tournament')
+        this.$router.push('user')
       })
   }
 
