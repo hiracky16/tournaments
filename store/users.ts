@@ -59,16 +59,13 @@ export const actions: ActionTree<RootState, RootState> = {
         .signInWithPopup(
           new firebase.auth.TwitterAuthProvider()
         )
-      const user = firebase.auth().currentUser
-      console.log('success')
-      console.log(user)
+      commit(SET_UID, res.user?.uid)
       commit(SET_IMAGE, res.user?.photoURL)
       commit(SET_NAME, res.user?.displayName)
       commit(SET_ACCOUNT, '')
       commit(SET_IS_LOGIN, true)
     } catch (error) {
-      console.log('error')
-      console.log(error)
+      commit(SET_UID, '')
       commit(SET_IMAGE, '')
       commit(SET_NAME, '')
       commit(SET_ACCOUNT, '')
@@ -81,6 +78,7 @@ export const actions: ActionTree<RootState, RootState> = {
       const user = firebase.auth().currentUser
       if (user) {
         commit(SET_IS_LOGIN, true)
+        commit(SET_UID, user?.uid)
         commit(SET_IMAGE, user?.photoURL)
         commit(SET_NAME, user?.displayName)
       } else {
@@ -90,6 +88,7 @@ export const actions: ActionTree<RootState, RootState> = {
       commit(SET_IS_LOGIN, false)
       commit(SET_IMAGE, '')
       commit(SET_NAME, '')
+      commit(SET_UID, '')
       throw error
     }
   },
@@ -98,5 +97,6 @@ export const actions: ActionTree<RootState, RootState> = {
     commit(SET_IS_LOGIN, false)
     commit(SET_IMAGE, '')
     commit(SET_NAME, '')
+    commit(SET_UID, '')
   }
 }

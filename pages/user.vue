@@ -72,7 +72,7 @@ const UserStore = namespace('users')
     store.dispatch('tournaments/setTournaments', tournaments)
   }
 })
-export default class TournamentsPage extends Vue {
+export default class User extends Vue {
   @TournamentStore.Getter('tournaments')
   tournaments!: { [key: string]: string }[]
 
