@@ -35,7 +35,7 @@ export default class Index extends Vue {
     } catch (error) {
       console.log(error)
     } finally {
-      this.$router.push('user')
+      this.$router.push('home')
     }
   }
 }
