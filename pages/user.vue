@@ -39,6 +39,9 @@
         <button class="button is-primary is-medium" @click="twitterLogout">
           ログアウト
         </button>
+        <button class="button is-primary is-medium" @click="clickTweetButton">
+          ツイート
+        </button>
       </div>
     </section>
     <TournamentList :tournaments="tournaments" />
@@ -48,7 +51,6 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, namespace } from 'nuxt-property-decorator'
-import firebase from '@/plugins/firebase'
 import TournamentList from '~/components/TournamentList.vue'
 
 const TournamentStore = namespace('tournaments')
@@ -58,18 +60,8 @@ const UserStore = namespace('users')
   components: {
     TournamentList
   },
-  async fetch ({ store }) {
-    const tournaments: { [key: string]: string }[] = []
-    await firebase
-      .firestore()
-      .collection('tournaments')
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          tournaments.push({ id: doc.id, name: doc.data()?.name })
-        })
-      })
-    store.dispatch('tournaments/setTournaments', tournaments)
+  fetch ({ store }) {
+    store.dispatch('tournaments/fetchTournaments')
   }
 })
 export default class User extends Vue {
@@ -78,6 +70,9 @@ export default class User extends Vue {
 
   @UserStore.Action('logout')
   logout!: () => void
+
+  @UserStore.Action('tweet')
+  tweet!: () => void
 
   @UserStore.Getter('name')
   name!: string
@@ -92,6 +87,10 @@ export default class User extends Vue {
   async twitterLogout () {
     await this.logout()
     this.$router.push('/')
+  }
+
+  async clickTweetButton () {
+    await this.tweet()
   }
 }
 </script>
