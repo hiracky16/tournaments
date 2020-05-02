@@ -1,37 +1,39 @@
 <template>
-  <div class="container">
-    <div class="card">
-      <div class="card-content">
-        <div class="content">
-          <div class="field">
-            <label class="label">メールアドレス</label>
-            <div class="control">
-              <input
-                class="input"
-                type="mail"
-                placeholder="email@example.com"
-                @change="changeEmail"
-              >
+  <div class="page-base">
+    <div class="login-panel">
+      <div class="card">
+        <div class="card-content">
+          <div class="content">
+            <div class="field">
+              <label class="label">メールアドレス</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="mail"
+                  placeholder="email@example.com"
+                  @change="changeEmail"
+                >
+              </div>
             </div>
-          </div>
-          <div class="field">
-            <label class="label">パスワード</label>
-            <div class="control">
-              <input
-                class="input"
-                type="password"
-                placeholder="password"
-                @change="changePassword"
-              >
+            <div class="field">
+              <label class="label">パスワード</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="password"
+                  placeholder="password"
+                  @change="changePassword"
+                >
+              </div>
             </div>
           </div>
         </div>
+        <footer class="card-footer">
+          <button class="button is-primary is-fullwidth" @click="buttonAction">
+            {{ buttonText }}
+          </button>
+        </footer>
       </div>
-      <footer class="card-footer">
-        <button class="button is-primary is-fullwidth" @click="buttonAction">
-          {{ buttonText }}
-        </button>
-      </footer>
     </div>
   </div>
 </template>
@@ -96,16 +98,17 @@ export default class Login extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
 .title {
   font-size: 32px;
+}
+
+.login-panel {
+  width: 400px;
+  margin: auto;
+}
+
+.page-base {
+  width: 100%;
+  min-height: 100%;
 }
 </style>

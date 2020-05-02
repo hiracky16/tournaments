@@ -1,24 +1,31 @@
 <template>
   <div>
-    <header>
+    <header class="container">
       <nuxt-link to="/">
         <h1>
-          <img src="~/assets/logo.png" width="200px">
+          <!-- <img src="~/assets/logo.png" width="200px"> -->
+          Idol Tournament
         </h1>
       </nuxt-link>
       <nav>
-        <!-- <ul>
-          <li>
+        <ul>
+          <!-- TODO: isLoginで切り替え -->
+          <li v-if="true">
             <nuxt-link to="/login">
               ログイン
             </nuxt-link>
           </li>
-          <li>
+          <li v-if="false">
+            <nuxt-link to="/logout">
+              ログアウト
+            </nuxt-link>
+          </li>
+          <!-- <li>
             <nuxt-link to="/tournament">
               トーナメント
             </nuxt-link>
-          </li>
-        </ul> -->
+          </li> -->
+        </ul>
       </nav>
     </header>
   </div>
@@ -33,19 +40,21 @@ export default class Header extends Vue {}
 
 <style lang="scss" scoped>
 header {
-  color: #fff;
-  padding: 20px;
-  background-color: #527b8e;
+  padding: 20px 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
   h1 {
-    color: #fff;
+    color: #858585;
+    font-size: 32px;
     a {
-      color: #fff;
+      color: #333;
     }
   }
 }
 
 nav {
-  color: #fff;
+  margin-left: auto;
   ul {
     display: flex;
     justify-content: flex-end;
@@ -53,7 +62,7 @@ nav {
       list-style-type: none;
       margin-left: 15px;
       a {
-        color: #fff;
+        color: #333;
       }
     }
   }
