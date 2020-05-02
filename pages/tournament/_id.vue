@@ -25,7 +25,7 @@ export default class TournamentDetail extends Vue {
             player2: { id: '4', name: 'Competitor 4' }
           },
           {
-            player1: { id: '5', name: 'Competitor 5', winner: false },
+            player1: { id: '5', name: 'Competitor 5' },
             player2: { id: '8', name: 'Competitor 8', winner: true }
           },
           {
