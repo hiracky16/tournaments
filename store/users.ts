@@ -71,7 +71,6 @@ export const mutations: MutationTree<RootState> = {
   },
   [SET_USER_INFO] (state: User, usreInfo: any | null) {
     if (usreInfo) {
-      state.uid = usreInfo?.uid
       state.image = usreInfo?.photoURL
       state.name = usreInfo?.displayName
       state.account = ''
