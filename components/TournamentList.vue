@@ -1,21 +1,19 @@
 <template>
   <div>
-    <section class="section">
-      <div class="container">
-        <nav class="panel">
-          <p class="panel-heading">
-            トーナメント一覧
-          </p>
-          <div
-            v-for="tournament in tournaments"
-            :key="tournament.id"
-          >
-            <nuxt-link class="panel-block" :to="`tournament/${tournament.id}`">
-              {{ tournament.name }}
-            </nuxt-link>
-          </div>
-        </nav>
-      </div>
+    <section>
+      <nav class="panel">
+        <p class="panel-heading">
+          トーナメント一覧
+        </p>
+        <div
+          v-for="tournament in tournaments"
+          :key="tournament.id"
+        >
+          <nuxt-link class="panel-block" :to="`tournament/${tournament.id}`">
+            {{ tournament.name }}
+          </nuxt-link>
+        </div>
+      </nav>
     </section>
   </div>
 </template>
@@ -39,5 +37,8 @@ export default class Tournament extends Vue {
   .Trournaments_Table {
     display: block;
   }
+}
+.panel-block {
+  background-color: #fff;
 }
 </style>
