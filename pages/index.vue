@@ -28,6 +28,9 @@ export default class Index extends Vue {
   @UserStore.Action('login')
   login!: () => void
 
+  @UserStore.Getter('uid')
+  uid!: string
+
   async twitterLogin () {
     try {
       console.log('test')
@@ -35,7 +38,7 @@ export default class Index extends Vue {
     } catch (error) {
       console.log(error)
     } finally {
-      this.$router.push('user')
+      this.$router.push(`user/${this.uid}`)
     }
   }
 }

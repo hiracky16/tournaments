@@ -47,13 +47,23 @@ export default {
     '@nuxtjs/axios',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
+    '@nuxtjs/proxy'
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    proxy: true
+  },
+  proxy: {
+    '/api': {
+      target: 'https://api.twitter.com/1.1/',
+      pathRewrite: {
+        '^/api': '/'
+      }
+    }
   },
   /*
   ** Build configuration
