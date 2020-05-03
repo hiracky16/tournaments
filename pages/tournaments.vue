@@ -1,6 +1,9 @@
 <template>
   <div>
-    <TournamentList :tournaments="tournaments" />
+    <TournamentList
+      :tournaments="tournaments"
+      @click="clickTournament"
+    />
   </div>
 </template>
 
@@ -22,6 +25,14 @@ const TournamentStore = namespace('tournaments')
 export default class TournamentsPage extends Vue {
   @TournamentStore.Getter('tournaments')
   tournaments!: { [key: string]: string }[]
+
+  @TournamentStore.Action('fetchTournament')
+  fetchTournament!: (id: string) => void
+
+  async clickTournament (event: string) {
+    await this.fetchTournament(event)
+    this.$router.push(`tournament/${event}`)
+  }
 }
 </script>
 

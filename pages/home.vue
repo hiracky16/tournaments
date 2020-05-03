@@ -44,7 +44,10 @@
         </button>
       </div>
     </section>
-    <TournamentList :tournaments="tournaments" />
+    <TournamentList
+      :tournaments="tournaments"
+      @click="clickTournament"
+    />
   </div>
 </template>
 
@@ -67,6 +70,9 @@ const UserStore = namespace('users')
 export default class User extends Vue {
   @TournamentStore.Getter('tournaments')
   tournaments!: { [key: string]: string }[]
+
+  @TournamentStore.Action('fetchTournament')
+  fetchTournament!: (id: string) => void
 
   @UserStore.Action('logout')
   logout!: () => void
@@ -91,6 +97,11 @@ export default class User extends Vue {
 
   async clickTweetButton () {
     await this.tweet()
+  }
+
+  async clickTournament (event: string) {
+    await this.fetchTournament(event)
+    this.$router.push(`tournament/${event}`)
   }
 }
 </script>

@@ -9,9 +9,12 @@
           v-for="tournament in tournaments"
           :key="tournament.id"
         >
-          <nuxt-link class="panel-block" :to="`tournament/${tournament.id}`">
+          <div
+            class="panel-block"
+            @click="clickAction(tournament.id)"
+          >
             {{ tournament.name }}
-          </nuxt-link>
+          </div>
         </div>
       </nav>
     </section>
@@ -20,12 +23,17 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component, Prop } from 'nuxt-property-decorator'
+import { Component, Prop, Emit } from 'nuxt-property-decorator'
 
 @Component({})
 export default class Tournament extends Vue {
   @Prop({ type: Object, required: true })
   tournaments!: { [key: string]: string }[]
+
+  @Emit('click')
+  clickAction (id: string) {
+    return id
+  }
 }
 </script>
 
