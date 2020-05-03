@@ -12,7 +12,6 @@
             トーナメントの編集を保存
           </button>
         </div>
-
       </div>
       <TournamentLayout :rounds="rounds" :isEditable="true" />
     </div>
@@ -79,9 +78,11 @@ export default class TournamentEditTemplate extends Vue {
   padding: 10px 16px;
   background: #f5576c;
   background-image: linear-gradient(120deg, #fb93c7 0%, #f5576c 100%);
+  border: none;
   color: #fff;
   font-size: 1em;
   font-weight: bold;
   box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+  cursor: pointer;
 }
 </style>
