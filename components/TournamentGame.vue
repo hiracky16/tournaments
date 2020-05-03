@@ -1,17 +1,17 @@
 <template>
   <div class="TournamentGame">
     <div
-      @click="updateGame(game.player1)"
-      :class="getWinLoseStatus(game.player1.winner)"
+      :class="winLoseStatus(game.player1.winner)"
       class="TournamentGame__player"
+      @click="updateGame('player1')"
     >
       {{ getPlayerName(game.player1) }}
     </div>
     <div
       v-if="game.player2"
-      @click="updateGame(game.player2)"
-      :class="getWinLoseStatus(game.player2.winner)"
+      :class="winLoseStatus(game.player2.winner)"
       class="TournamentGame__player"
+      @click="updateGame('player2')"
     >
       {{ getPlayerName(game.player2) }}
     </div>
@@ -20,29 +20,61 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component, Prop } from 'nuxt-property-decorator'
-import { Player, Game } from '~/models/tournament'
+import { Component, Prop, namespace } from 'nuxt-property-decorator'
+import { Player, Game, GameParams } from '~/models/tournament'
+
+const RoundStore = namespace('rounds')
 
 @Component({})
 export default class TournamentGame extends Vue {
+  @Prop({
+    type: Number,
+    required: true
+  })
+  gameIdx!: number
+
+  @Prop({
+    type: Number,
+    required: true
+  })
+  roundIdx!: number
+
   @Prop({
     type: Object,
     required: true
   })
   game!: Game
 
-  getWinLoseStatus (winner: boolean) {
-    if (winner === undefined) {
-      return 'undecided'
-    } else if (winner) {
-      return 'winner'
-    } else {
-      return 'loser'
+  @RoundStore.Action('updateGameWinner')
+  updateGameWinner!: (gameParams: GameParams) => void
+
+  get winLoseStatus () {
+    return (winner: boolean) => {
+      if (winner === undefined) {
+        return 'undecided'
+      } else if (winner) {
+        return 'winner'
+      } else {
+        return 'loser'
+      }
     }
   }
 
-  updateGame (player: Player) {
-    this.$emit('updateGame', player)
+  updateGame (player: 'player1' | 'player2') {
+    const newGame = Object.assign(
+      {},
+      this.game
+    )
+    newGame.player1.winner = false
+    newGame.player2.winner = false
+
+    newGame[player].winner = true
+
+    this.updateGameWinner({
+      gameIdx: this.gameIdx,
+      roundIdx: this.roundIdx,
+      game: newGame
+    })
   }
 
   getPlayerName (player: Player) {

@@ -63,6 +63,7 @@ export default class TournamentIndexTemplate extends Vue {
   padding: 10px 16px;
   background: #f5576c;
   background-image: linear-gradient(120deg, #fb93c7 0%, #f5576c 100%);
+  border: none;
   color: #fff;
   font-size: 1em;
   font-weight: bold;

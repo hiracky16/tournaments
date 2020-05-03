@@ -1,35 +1,60 @@
 <template>
   <div class="TournamentLayout__list">
     <div class="TournamentLayout__block _wrap">
-      <TournamentGame :game="rounds.slice(-1)[0].games[0]" class="TournamentLayout__game" @updateGame="updateGame" />
+      <TournamentGame
+        :game-idx="0"
+        :round-idx="0"
+        :game="rounds.slice(-1)[0].games[0]"
+        class="TournamentLayout__game"
+      />
       <div class="TournamentLayout__prev-block">
         <div
           v-for="(game_r2, i2) in rounds.slice(-2)[0].games"
           :key="`round-2_${i2}`"
           class="TournamentLayout__block"
         >
-          <TournamentGame :game="game_r2" class="TournamentLayout__game" @updateGame="updateGame" />
+          <TournamentGame
+            :game-idx="i2"
+            :round-idx="1"
+            :game="game_r2"
+            class="TournamentLayout__game"
+          />
           <div class="TournamentLayout__prev-block">
             <div
               v-for="(game_r3, i3) in rounds.slice(-3)[0].games.slice(i2 * 2, ((i2 * 2) + 2))"
               :key="`round-3_${i3}`"
               class="TournamentLayout__block"
             >
-              <TournamentGame :game="game_r3" class="TournamentLayout__game" @updateGame="updateGame" />
+              <TournamentGame
+                :game-idx="(i2 * 2) + i3"
+                :round-idx="2"
+                :game="game_r3"
+                class="TournamentLayout__game"
+              />
               <div class="TournamentLayout__prev-block">
                 <div
-                  v-for="(game_r4, i4) in rounds.slice(-4)[0].games.slice(((i2 * 4) + (i3 * 2)), ((i2 * 4) + (i3 * 2)) + 2)"
+                  v-for="(game_r4, i4) in rounds.slice(-4)[0].games.slice((i2 * 4) + (i3 * 2), ((i2 * 4) + (i3 * 2)) + 2)"
                   :key="`round-4_${i4}`"
                   class="TournamentLayout__block"
                 >
-                  <TournamentGame :game="game_r4" class="TournamentLayout__game" @updateGame="updateGame" />
+                  <TournamentGame
+                    :game-idx="(i2 * 4) + (i3 * 2) + i4"
+                    :round-idx="3"
+                    :game="game_r4"
+                    class="TournamentLayout__game"
+                  />
                   <div class="TournamentLayout__prev-block">
                     <div
-                      v-for="(game_r5, i5) in rounds.slice(-5)[0].games.slice(((i2 * 8) + (i3 * 4)) + (i4 * 2), ((i2 * 8) + (i3 * 4)) + (i4 * 2) + 2)"
+                      v-for="(game_r5, i5) in rounds.slice(-5)[0].games.slice((i2 * 8) + (i3 * 4) + (i4 * 2), ((i2 * 8) + (i3 * 4)) + (i4 * 2) + 2)"
                       :key="`round-5_${i5}`"
                       class="TournamentLayout__block"
                     >
-                      <TournamentGame :game="game_r5" class="TournamentLayout__game" @updateGame="updateGame" />
+                      <TournamentGame
+                        :game-idx="(i2 * 8) + (i3 * 4) + (i4 * 2) + i5"
+                        :round-idx="4"
+                        :game="game_r5"
+                        class="TournamentLayout__game"
+                      />
                     </div>
                   </div>
                   <!-- r5 -->
@@ -51,7 +76,7 @@
 import Vue from 'vue'
 import { Component, Prop } from 'nuxt-property-decorator'
 import TournamentGame from '~/components/TournamentGame.vue'
-import { Player, Game } from '~/models/tournament'
+import { Game } from '~/models/tournament'
 
 @Component({
   components: { TournamentGame }
@@ -68,13 +93,9 @@ export default class TournamentLayout extends Vue {
   @Prop({
     type: Boolean,
     required: false,
-    default: false,
+    default: false
   })
   isEditable!: boolean
-
-  updateGame (winner: Player) {
-    console.log(winner);
-  }
 }
 </script>
 
