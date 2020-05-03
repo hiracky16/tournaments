@@ -1,10 +1,5 @@
 import { ActionTree, GetterTree, MutationTree } from 'vuex'
-import Twitter from '@/plugins/TwitterClient'
 import User from '@/models/User'
-
-require('dotenv').config()
-
-const TWITTER_POST_ENDPOINT = 'statuses/update.json'
 
 type State = {
   isLogin: boolean
@@ -54,43 +49,6 @@ export const actions: ActionTree<RootState, RootState> = {
     commit(SET_USER, null)
   },
   async tweet ({ getters }) {
-    const twitter = new Twitter(
-      process.env.TWITTER_API_KEY,
-      process.env.TWITTER_API_SECRET_KEY,
-      getters.token,
-      getters.secret
-    )
-    const params = [
-      { key: 'status', value: '今日は暑いね' }
-    ]
-    const url = `/api/${TWITTER_POST_ENDPOINT}`
-    const json = await twitter.post(url, params)
-    console.log(json)
-    // const url = 'http://localhost:3000/api/friends/list.json'
-    // const params = [
-    //   { key: 'screen_name', value: 'TwitterJP' }
-    // ]
-    // const json = await twitter.get(url, params)
-    // console.log(json)
-
-    // console.log(hmac.digest('hex'))
-    // await axios.post(, {
-    //   header: {
-    //     'Content-Type': 'application/x-www-form-urlencoded',
-    //     Authorization: `OAuth oauth_consumer_key=${process.env.TWITTER_API_KEY},oauth_token="${getters.token}",oauth_signature_method="HMAC-SHA1",oauth_timestamp="1515677408",oauth_nonce="nonce",,oauth_version="1.0",,oauth_signature="signature"`
-    //   },
-    //   data: { status: '今日暑いね' }
-    // })
-    // const client = new Twitter({
-    //   consumer_key: `${process.env.TWITTER_API_KEY}`,
-    //   consumer_secret: `${process.env.TWITTER_API_SECRET_KEY}`,
-    //   access_token_key: `${getters.token}`,
-    //   access_token_secret: `${getters.secret}`
-    // })
-    // await client.post('statuses/update', { status: '今日暑い...' }, (error: any, tweet: any, response: any) => {
-    //   if (error) { throw error }
-    //   console.log(tweet)
-    //   console.log(response)
-    // })
+    await getters.user.tweet()
   }
 }
