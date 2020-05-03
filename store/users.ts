@@ -4,6 +4,8 @@ import Twitter from '@/plugins/TwitterClient'
 
 require('dotenv').config()
 
+const userRef = firebase.firestore().collection('users')
+
 const TWITTER_POST_ENDPOINT = 'statuses/update.json'
 
 interface User {
@@ -71,10 +73,12 @@ export const mutations: MutationTree<RootState> = {
   },
   [SET_USER_INFO] (state: User, usreInfo: any | null) {
     if (usreInfo) {
+      state.uid = usreInfo?.uid
       state.image = usreInfo?.photoURL
       state.name = usreInfo?.displayName
       state.account = ''
     } else {
+      state.uid = ''
       state.image = ''
       state.name = ''
       state.account = ''
@@ -83,14 +87,13 @@ export const mutations: MutationTree<RootState> = {
 }
 
 export const actions: ActionTree<RootState, RootState> = {
-  async login ({ commit }) {
+  async login ({ commit, dispatch }) {
     try {
       const res = await firebase
         .auth()
         .signInWithPopup(
           new firebase.auth.TwitterAuthProvider()
         )
-      console.log(res)
       // FIXME: type になかったので暫定対応
       const token = (res?.credential as any)?.accessToken
       const secret = (res?.credential as any)?.secret
@@ -99,6 +102,7 @@ export const actions: ActionTree<RootState, RootState> = {
       commit(SET_IS_LOGIN, true)
       commit(SET_TOKEN, token)
       commit(SET_SECRET, secret)
+      dispatch('storeUser')
     } catch (error) {
       commit(SET_USER_INFO, null)
       commit(SET_IS_LOGIN, false)
@@ -164,5 +168,13 @@ export const actions: ActionTree<RootState, RootState> = {
     //   console.log(tweet)
     //   console.log(response)
     // })
+  },
+  async storeUser ({ getters }) {
+    console.log('user store')
+    const res = await userRef.doc(getters.uid).set({
+      name: getters.name,
+      image: getters.image
+    })
+    console.log(res)
   }
 }
