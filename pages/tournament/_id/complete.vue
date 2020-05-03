@@ -34,13 +34,13 @@ export default {
 
 .finmessage {
   font-size: 60px;
-  height: 150px;
+  line-height: 100px;
   float: center;
 }
 
 .tournaments {
   font-size: 30px;
-  height: 250px;
+  line-height: 100px;
   float: center;
 }
 
