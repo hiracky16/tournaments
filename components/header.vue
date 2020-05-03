@@ -46,7 +46,7 @@ header {
   align-items: center;
   h1 {
     color: #858585;
-    font-size: 32px;
+    font-size: 2em;
     a {
       color: #333;
     }

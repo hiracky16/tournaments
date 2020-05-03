@@ -33,7 +33,7 @@ export default class Layout extends Vue {
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
+  font-size: 1em;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -50,11 +50,11 @@ html, body, #__nuxt, #__layout {
 }
 
 .container {
-  width: 100%;
+  width: calc(100% - 40px);
+  margin: 0 auto;
 
   @media screen and (max-width: 768px) {
     width: 90%;
-    margin: 0 auto;
   }
 }
 

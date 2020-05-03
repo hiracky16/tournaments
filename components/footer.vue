@@ -1,6 +1,6 @@
 <template>
   <div>
-    <footer><copy>&copy; Idol Tournaments all rights reserved.</copy></footer>
+    <footer><small>&copy; Idol Tournaments all rights reserved.</small></footer>
   </div>
 </template>
 <script lang="ts">
@@ -15,6 +15,6 @@ export default class Footer extends Vue {}
 footer {
   text-align: center;
   padding: 20px;
-  font-size: 12px;
+  font-size: .75em;
 }
 </style>
