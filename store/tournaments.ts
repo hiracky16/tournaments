@@ -1,11 +1,5 @@
 import { ActionTree, GetterTree, MutationTree } from 'vuex'
-import firebase from '@/plugins/firebase'
 import FirestoreTournament from '~/models/FirestoreTournament'
-
-interface Tournament {
-  id: string
-  name: string
-}
 
 type State = {
   tournaments: FirestoreTournament[],

@@ -3,6 +3,8 @@ import firebase from '@/plugins/firebase'
 const ref = firebase.firestore().collection('tournaments')
 
 export default class FirestoreTournament {
+  private DEFAULT_PLAYER_COUNT = 32
+
   id: string
   name: string
   players: Player[]
@@ -34,6 +36,31 @@ export default class FirestoreTournament {
     })
     return new FirestoreTournament(res.id, res.data()?.name, players)
   }
+
+  generateRounds () {
+    // 選択肢の数
+    let playersCount = this.DEFAULT_PLAYER_COUNT
+    const tournamentPlayers = shuffle(this.players).slice(0, playersCount)
+    // イケてない…からだれか助けて
+    const rounds = []
+    const games = []
+    for (let i = 0; i < playersCount; i = i + 2) {
+      games.push(
+        {
+          player1: { id: tournamentPlayers[i].id, name: tournamentPlayers[i].name },
+          player2: { id: tournamentPlayers[i + 1].id, name: tournamentPlayers[i + 1].name }
+        }
+      )
+    }
+    rounds.push({ games })
+    while (true) {
+      playersCount = playersCount / 2
+      if (playersCount < 2) { break }
+      const games = generateEmptyGame(playersCount)
+      rounds.push(games)
+    }
+    return rounds
+  }
 }
 
 export class Player {
@@ -44,4 +71,21 @@ export class Player {
     this.id = id
     this.name = name
   }
+}
+
+const shuffle = ([...array]) => {
+  for (let i = array.length - 1; i >= 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]]
+  }
+  return array
+}
+
+const generateEmptyGame = (n: number) => {
+  const games = []
+  const emptyPlayerData = { id: '', name: '' }
+  for (let i = 0; i < (n / 2); i++) {
+    games.push({ player1: emptyPlayerData, player2: emptyPlayerData })
+  }
+  return { games }
 }
