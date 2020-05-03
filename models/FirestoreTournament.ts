@@ -61,6 +61,15 @@ export default class FirestoreTournament {
     }
     return rounds
   }
+
+  async registerUserTournament (userId: string) {
+    const rounds = this.generateRounds()
+    await firebase
+      .firestore()
+      .collection(`users/${userId}/tournaments`)
+      .doc()
+      .set({ name: this.name, rounds })
+  }
 }
 
 export class Player {

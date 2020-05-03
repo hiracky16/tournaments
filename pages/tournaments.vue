@@ -11,8 +11,11 @@
 import Vue from 'vue'
 import { Component, namespace } from 'nuxt-property-decorator'
 import TournamentList from '~/components/TournamentList.vue'
+import FirestoreTournament from '~/models/FirestoreTournament'
+import User from '~/models/User'
 
 const TournamentStore = namespace('tournaments')
+const UserStore = namespace('users')
 
 @Component({
   components: {
@@ -24,13 +27,16 @@ const TournamentStore = namespace('tournaments')
 })
 export default class TournamentsPage extends Vue {
   @TournamentStore.Getter('tournaments')
-  tournaments!: { [key: string]: string }[]
+  tournaments!: FirestoreTournament[]
 
-  @TournamentStore.Action('fetchTournament')
-  fetchTournament!: (id: string) => void
+  @UserStore.Getter('user')
+  user!: User
+
+  @TournamentStore.Action('fetchAndRegisterTournament')
+  fetchAndRegisterTournament!: (data: {id: string, userId: string}) => void
 
   async clickTournament (event: string) {
-    await this.fetchTournament(event)
+    await this.fetchAndRegisterTournament({ id: event, userId: this.user.id })
     this.$router.push(`tournament/${event}`)
   }
 }
