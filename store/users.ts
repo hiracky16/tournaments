@@ -1,133 +1,57 @@
 import { ActionTree, GetterTree, MutationTree } from 'vuex'
-import firebase from '@/plugins/firebase'
 import Twitter from '@/plugins/TwitterClient'
+import User from '@/models/User'
 
 require('dotenv').config()
 
-const userRef = firebase.firestore().collection('users')
-
 const TWITTER_POST_ENDPOINT = 'statuses/update.json'
 
-interface User {
-  uid: string
+type State = {
   isLogin: boolean
-  image: string
-  name: string
-  account: string,
-  token: string,
-  secret: string
+  user: User | null
 }
 
 export const state = () => ({
-  uid: '' as string,
   isLogin: false as boolean,
-  image: '' as string,
-  name: '' as string,
-  account: '' as string,
-  token: '' as string,
-  secret: '' as string
+  user: null as User | null
 })
 
 export type RootState = ReturnType<typeof state>
 
 export const getters: GetterTree<RootState, RootState> = {
-  uid: state => state.uid,
   isLogin: state => state.isLogin,
-  image: state => state.image,
-  name: state => state.name,
-  account: state => state.account,
-  token: state => state.token,
-  secret: state => state.secret
+  user: state => state.user
 }
 
-const SET_UID = 'SET_UID'
 const SET_IS_LOGIN = 'SET_IS_LOGIN'
-const SET_IMAGE = 'SET_IMAGE'
-const SET_NAME = 'SET_NAME'
-const SET_ACCOUNT = 'SET_ACCOUNT'
-const SET_USER_INFO = 'SET_USER_INFO'
-const SET_TOKEN = 'SET_TOKEN'
-const SET_SECRET = 'SET_SECRET'
+const SET_USER = 'SET_USER'
 
 export const mutations: MutationTree<RootState> = {
-  [SET_UID] (state: User, uid: string) {
-    state.uid = uid
-  },
-  [SET_IS_LOGIN] (state: User, flag: boolean) {
+  [SET_IS_LOGIN] (state: State, flag: boolean) {
     state.isLogin = flag
   },
-  [SET_IMAGE] (state: User, image: string) {
-    state.image = image
-  },
-  [SET_NAME] (state: User, name: string) {
-    state.name = name
-  },
-  [SET_ACCOUNT] (state: User, account: string) {
-    state.account = account
-  },
-  [SET_TOKEN] (state: User, token: string) {
-    state.token = token
-  },
-  [SET_SECRET] (state: User, secret: string) {
-    state.secret = secret
-  },
-  [SET_USER_INFO] (state: User, usreInfo: any | null) {
-    if (usreInfo) {
-      state.uid = usreInfo?.uid
-      state.image = usreInfo?.photoURL
-      state.name = usreInfo?.displayName
-      state.account = ''
-    } else {
-      state.uid = ''
-      state.image = ''
-      state.name = ''
-      state.account = ''
-    }
+  [SET_USER] (state: State, user: User) {
+    state.user = user
   }
 }
 
 export const actions: ActionTree<RootState, RootState> = {
-  async login ({ commit, dispatch }) {
+  async login ({ commit }) {
     try {
-      const res = await firebase
-        .auth()
-        .signInWithPopup(
-          new firebase.auth.TwitterAuthProvider()
-        )
-      // FIXME: type になかったので暫定対応
-      const token = (res?.credential as any)?.accessToken
-      const secret = (res?.credential as any)?.secret
-      console.log(res.user)
-      commit(SET_USER_INFO, res.user)
+      const user = await User.login()
+      commit(SET_USER, user)
       commit(SET_IS_LOGIN, true)
-      commit(SET_TOKEN, token)
-      commit(SET_SECRET, secret)
-      dispatch('storeUser')
+      user.storeUser()
     } catch (error) {
-      commit(SET_USER_INFO, null)
+      commit(SET_USER, null)
       commit(SET_IS_LOGIN, false)
       throw error
     }
   },
-  checkLogin ({ commit }) {
-    try {
-      const user = firebase.auth().currentUser
-      if (user) {
-        commit(SET_IS_LOGIN, true)
-        commit(SET_USER_INFO, user)
-      } else {
-        throw Error
-      }
-    } catch (error) {
-      commit(SET_IS_LOGIN, false)
-      commit(SET_USER_INFO, null)
-      throw error
-    }
-  },
-  async logout ({ commit }) {
-    await firebase.auth().signOut()
+  async logout ({ getters, commit }) {
+    await getters.user.logout()
     commit(SET_IS_LOGIN, false)
-    commit(SET_USER_INFO, null)
+    commit(SET_USER, null)
   },
   async tweet ({ getters }) {
     const twitter = new Twitter(
@@ -168,13 +92,5 @@ export const actions: ActionTree<RootState, RootState> = {
     //   console.log(tweet)
     //   console.log(response)
     // })
-  },
-  async storeUser ({ getters }) {
-    console.log('user store')
-    const res = await userRef.doc(getters.uid).set({
-      name: getters.name,
-      image: getters.image
-    })
-    console.log(res)
   }
 }

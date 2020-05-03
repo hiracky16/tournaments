@@ -7,12 +7,12 @@
             <div class="media">
               <div class="media-left">
                 <figure class="image is-48x48">
-                  <img :src="image" alt="Placeholder image">
+                  <img :src="user.image" alt="Placeholder image">
                 </figure>
               </div>
               <div class="media-content">
                 <p class="title is-4">
-                  {{ name }}
+                  {{ user.name }}
                 </p>
                 <p class="subtitle is-6">
                   @johnsmith
@@ -55,6 +55,7 @@
 import Vue from 'vue'
 import { Component, namespace } from 'nuxt-property-decorator'
 import TournamentList from '~/components/TournamentList.vue'
+import User from '~/models/User.ts'
 
 const TournamentStore = namespace('tournaments')
 const UserStore = namespace('users')
@@ -67,7 +68,7 @@ const UserStore = namespace('users')
     store.dispatch('tournaments/fetchTournaments')
   }
 })
-export default class User extends Vue {
+export default class Home extends Vue {
   @TournamentStore.Getter('tournaments')
   tournaments!: { [key: string]: string }[]
 
@@ -80,11 +81,8 @@ export default class User extends Vue {
   @UserStore.Action('tweet')
   tweet!: () => void
 
-  @UserStore.Getter('name')
-  name!: string
-
-  @UserStore.Getter('image')
-  image!: string
+  @UserStore.Getter('user')
+  user!: User
 
   toTournamentList () {
     this.$router.push('tournaments')
