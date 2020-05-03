@@ -30,7 +30,6 @@ export default class Index extends Vue {
 
   async twitterLogin () {
     try {
-      console.log('test')
       await this.login()
     } catch (error) {
       console.log(error)
