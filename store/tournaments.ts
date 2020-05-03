@@ -1,5 +1,6 @@
 import { ActionTree, GetterTree, MutationTree } from 'vuex'
 import firebase from '@/plugins/firebase'
+import FirestoreTournament from '~/models/FirestoreTournament'
 
 interface Tournament {
   id: string
@@ -7,39 +8,39 @@ interface Tournament {
 }
 
 type State = {
-  tournaments: Tournament[]
+  tournaments: FirestoreTournament[],
+  tournament: FirestoreTournament | null
 }
 
 export const state = () => ({
-  tournaments: [] as Tournament[]
+  tournaments: [] as FirestoreTournament[],
+  tournament: null as FirestoreTournament | null
 })
 
 export type RootState = ReturnType<typeof state>
 
 export const getters: GetterTree<RootState, RootState> = {
-  tournaments: state => state.tournaments
+  tournaments: state => state.tournaments,
+  tournament: state => state.tournament
 }
 
 const SET_TOURNAMENTS = 'SET_TOURNAMENTS'
+const SET_TOURNAMENT = 'SET_TOURNAMENT'
 
 export const mutations: MutationTree<RootState> = {
-  [SET_TOURNAMENTS] (state: State, tournaments: Tournament[]) {
+  [SET_TOURNAMENTS] (state: State, tournaments: FirestoreTournament[]) {
     state.tournaments = tournaments
+  },
+  [SET_TOURNAMENT] (state: State, tournament: FirestoreTournament) {
+    state.tournament = tournament
   }
 }
 
 export const actions: ActionTree<RootState, RootState> = {
   async fetchTournaments ({ commit }) {
-    const tournaments: { [key: string]: string }[] = []
-    await firebase
-      .firestore()
-      .collection('tournaments')
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          tournaments.push({ id: doc.id, name: doc.data()?.name })
-        })
-      })
-    commit(SET_TOURNAMENTS, tournaments)
+    commit(SET_TOURNAMENTS, await FirestoreTournament.findAll())
+  },
+  async fetchTournament ({ commit }, id) {
+    commit(SET_TOURNAMENT, await FirestoreTournament.findById(id))
   }
 }
