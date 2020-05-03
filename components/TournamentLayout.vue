@@ -68,9 +68,17 @@ export default class TournamentLayout extends Vue {
     display: flex;
     align-items: stretch;
     padding: 40px;
+    overflow-x: scroll;
+
+    @media screen and (max-width: 768px) {
+      padding: 20px;
+    }
   }
   &__prev-block {
     margin-right: 60px;
+    @media screen and (max-width: 768px) {
+      margin-right: 30px;
+    }
   }
   &__block {
     display: flex;
@@ -78,6 +86,9 @@ export default class TournamentLayout extends Vue {
     align-items: center;
     margin-bottom: 20px;
     position: relative;
+    @media screen and (max-width: 768px) {
+      margin-bottom: 15px;
+    }
     &:before {
       content: "";
       display: block;
@@ -87,6 +98,10 @@ export default class TournamentLayout extends Vue {
       position: absolute;
       left: calc(100% + 10px);
       top: 50%;
+      @media screen and (max-width: 768px) {
+        width: 15px;
+        left: 100%;
+      }
     }
     &:after {
       content: "";
@@ -97,6 +112,9 @@ export default class TournamentLayout extends Vue {
       position: absolute;
       left: calc(100% + 28px);
       top: 50%;
+      @media screen and (max-width: 768px) {
+        left: calc(100% + 13px);
+      }
     }
     &:last-child {
       margin-bottom: 0;
@@ -119,6 +137,10 @@ export default class TournamentLayout extends Vue {
       position: absolute;
       right: calc(100% + 10px);
       top: 50%;
+      @media screen and (max-width: 768px) {
+        width: 15px;
+        right: 100%;
+      }
     }
     &:last-child {
       &::before {
