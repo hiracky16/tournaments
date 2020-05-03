@@ -4,11 +4,11 @@ service cloud.firestore {
 		match /users/{document=**} {
 			allow write, read: if request.auth != null;
 		}
-		match /users/{document=**}/players/{document=**} {
-			allow write, read: if request.auth != null;
-		}
 		match /tournaments/{tournamentId} {
 			allow read;
+			match /players/{playerId} {
+				allow read;
+			}
 		}
   }
 }
