@@ -1,21 +1,14 @@
 <template>
-  <div>
-    <nuxt-link to="/tournaments" class="link-back">
-      ←トーナメント一覧へ戻る
-    </nuxt-link>
-    <TournamentLayout :rounds="rounds" />
-    <!-- <TournamentCard :rounds="rounds" /> -->
-  </div>
+  <TournamentIndexTemplate :rounds="rounds" />
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
-import TournamentCard from '~/components/TournamentCard.vue'
-import TournamentLayout from '~/components/TournamentLayout.vue'
+import TournamentIndexTemplate from '~/components/templates/tournament/_id/TournamentIndexTemplate.vue'
 
 @Component({
-  components: { TournamentCard, TournamentLayout }
+  components: { TournamentIndexTemplate }
 })
 export default class TournamentDetail extends Vue {
   get rounds () {
@@ -168,11 +161,3 @@ export default class TournamentDetail extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  .link-back {
-    color: #333;
-    display: inline-block;
-    margin-bottom: 16px;
-  }
-</style>
