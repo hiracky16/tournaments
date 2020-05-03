@@ -19,28 +19,14 @@
                 </p>
               </div>
             </div>
-
-            <div class="content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-              <a href="#">#css</a> <a href="#">#responsive</a>
-              <br>
-              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-            </div>
           </div>
         </div>
       </div>
     </section>
     <section class="section">
-      <div class="container">
+      <div class="container" id="buttonclass">
         <button class="button is-primary is-medium" @click="toTournamentList">
           新しいトーナメントを探す
-        </button>
-        <button class="button is-primary is-medium" @click="twitterLogout">
-          ログアウト
-        </button>
-        <button class="button is-primary is-medium" @click="clickTweetButton">
-          ツイート
         </button>
       </div>
     </section>
@@ -112,5 +98,10 @@ export default class Home extends Vue {
   .Trournaments_Table {
     display: block;
   }
+}
+
+#buttonclass {
+  text-align: center;
+  display: block;
 }
 </style>
