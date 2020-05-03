@@ -22,7 +22,7 @@ export default class Layout extends Vue {
 
 </script>
 
-<style>
+<style lang="scss">
 *,
 *:before,
 *:after {
@@ -51,6 +51,11 @@ html, body, #__nuxt, #__layout {
 
 .container {
   width: 100%;
+
+  @media screen and (max-width: 768px) {
+    width: 90%;
+    margin: 0 auto;
+  }
 }
 
 .button--green {
