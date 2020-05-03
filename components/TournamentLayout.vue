@@ -1,44 +1,49 @@
 <template>
-  <div class="card TournamentLayout__list">
+  <div class="TournamentLayout__list">
     <div class="TournamentLayout__block _wrap">
-      <TournamentGame :game="rounds.slice(-1)[0].games[0]" class="TournamentLayout__game" />
+      <TournamentGame :game="rounds.slice(-1)[0].games[0]" class="TournamentLayout__game" @updateGame="updateGame" />
       <div class="TournamentLayout__prev-block">
         <div
           v-for="(game_r2, i2) in rounds.slice(-2)[0].games"
           :key="`round-2_${i2}`"
           class="TournamentLayout__block"
         >
-          <TournamentGame :game="game_r2" class="TournamentLayout__game" />
+          <TournamentGame :game="game_r2" class="TournamentLayout__game" @updateGame="updateGame" />
           <div class="TournamentLayout__prev-block">
             <div
               v-for="(game_r3, i3) in rounds.slice(-3)[0].games.slice(i2 * 2, ((i2 * 2) + 2))"
               :key="`round-3_${i3}`"
               class="TournamentLayout__block"
             >
-              <TournamentGame :game="game_r3" class="TournamentLayout__game" />
+              <TournamentGame :game="game_r3" class="TournamentLayout__game" @updateGame="updateGame" />
               <div class="TournamentLayout__prev-block">
                 <div
                   v-for="(game_r4, i4) in rounds.slice(-4)[0].games.slice(((i2 * 4) + (i3 * 2)), ((i2 * 4) + (i3 * 2)) + 2)"
                   :key="`round-4_${i4}`"
                   class="TournamentLayout__block"
                 >
-                  <TournamentGame :game="game_r4" class="TournamentLayout__game" />
+                  <TournamentGame :game="game_r4" class="TournamentLayout__game" @updateGame="updateGame" />
                   <div class="TournamentLayout__prev-block">
                     <div
                       v-for="(game_r5, i5) in rounds.slice(-5)[0].games.slice(((i2 * 8) + (i3 * 4)) + (i4 * 2), ((i2 * 8) + (i3 * 4)) + (i4 * 2) + 2)"
                       :key="`round-5_${i5}`"
                       class="TournamentLayout__block"
                     >
-                      <TournamentGame :game="game_r5" class="TournamentLayout__game" />
+                      <TournamentGame :game="game_r5" class="TournamentLayout__game" @updateGame="updateGame" />
                     </div>
                   </div>
+                  <!-- r5 -->
                 </div>
               </div>
+              <!-- r4 -->
             </div>
           </div>
+          <!-- r3 -->
         </div>
       </div>
+      <!-- r2 -->
     </div>
+    <!-- _wrap -->
   </div>
 </template>
 
@@ -46,19 +51,30 @@
 import Vue from 'vue'
 import { Component, Prop } from 'nuxt-property-decorator'
 import TournamentGame from '~/components/TournamentGame.vue'
-import { Game } from '~/models/tournament'
+import { Player, Game } from '~/models/tournament'
 
 @Component({
   components: { TournamentGame }
 })
 export default class TournamentLayout extends Vue {
   @Prop({
-    type: Object,
+    type: Array,
     required: true
   })
   rounds!: {
     games: Game[]
   }[];
+
+  @Prop({
+    type: Boolean,
+    required: false,
+    default: false,
+  })
+  isEditable!: boolean
+
+  updateGame (winner: Player) {
+    console.log(winner);
+  }
 }
 </script>
 
@@ -67,12 +83,7 @@ export default class TournamentLayout extends Vue {
   &__list {
     display: flex;
     align-items: stretch;
-    padding: 40px;
     overflow-x: scroll;
-
-    @media screen and (max-width: 768px) {
-      padding: 20px;
-    }
   }
   &__prev-block {
     margin-right: 60px;
