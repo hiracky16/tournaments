@@ -34,7 +34,6 @@ export const actions: ActionTree<RootState, RootState> = {
   async login ({ commit }) {
     try {
       const user = await User.login()
-      console.log(user)
       commit(SET_USER, user)
       commit(SET_IS_LOGIN, true)
       user.storeUser()

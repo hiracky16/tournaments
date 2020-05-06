@@ -6,19 +6,24 @@
 import Vue from 'vue'
 import { Component, namespace } from 'nuxt-property-decorator'
 import TournamentIndexTemplate from '~/components/templates/tournament/_id/TournamentIndexTemplate.vue'
-import FirestoreTournament from '@/models/FirestoreTournament'
+// import FirestoreTournament from '@/models/FirestoreTournament'
 
-const TournamentStore = namespace('tournaments')
+// const TournamentStore = namespace('tournaments')
+const RoundStore = namespace('rounds')
 
 @Component({
-  components: { TournamentIndexTemplate }
+  components: { TournamentIndexTemplate },
+  fetch ({ store, params }) {
+    store.dispatch('rounds/fetchUserTournament', params.id)
+  }
 })
 export default class TournamentDetail extends Vue {
-  @TournamentStore.Getter('tournament')
-  tournament!: FirestoreTournament
+  // FIXME: type
+  @RoundStore.Getter('userTournament')
+  tournament!: any
 
   get rounds () {
-    return this.tournament.generateRounds()
+    return this.tournament.rounds
   }
 }
 </script>

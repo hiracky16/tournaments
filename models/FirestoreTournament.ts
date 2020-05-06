@@ -64,11 +64,13 @@ export default class FirestoreTournament {
 
   async registerUserTournament (userId: string) {
     const rounds = this.generateRounds()
+    const id = Math.random().toString(32).substring(2)
     await firebase
       .firestore()
       .collection(`users/${userId}/tournaments`)
-      .doc()
+      .doc(id)
       .set({ name: this.name, rounds })
+    return id
   }
 }
 

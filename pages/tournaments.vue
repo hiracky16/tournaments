@@ -36,8 +36,8 @@ export default class TournamentsPage extends Vue {
   fetchAndRegisterTournament!: (data: {id: string, userId: string}) => void
 
   async clickTournament (event: string) {
-    await this.fetchAndRegisterTournament({ id: event, userId: this.user.id })
-    this.$router.push(`tournament/${event}`)
+    const id = await this.fetchAndRegisterTournament({ id: event, userId: this.user.id })
+    this.$router.push(`tournament/${id}`)
   }
 }
 </script>

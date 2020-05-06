@@ -36,7 +36,7 @@ export const actions: ActionTree<RootState, RootState> = {
   },
   async fetchAndRegisterTournament ({ commit }, data: {id: string, userId: string}) {
     const tournament = await FirestoreTournament.findById(data.id)
-    await tournament.registerUserTournament(data.userId)
     commit(SET_TOURNAMENT, tournament)
+    return await tournament.registerUserTournament(data.userId)
   }
 }

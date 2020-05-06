@@ -76,4 +76,13 @@ export default class User {
     const json = await twitter.post(url, params)
     console.log(json)
   }
+
+  async findUserTournamentById (tournamentId: string) {
+    const res = await firebase
+      .firestore()
+      .collection(`users/${this.id}/tournaments`)
+      .doc(tournamentId)
+      .get()
+    return res.data()
+  }
 }
