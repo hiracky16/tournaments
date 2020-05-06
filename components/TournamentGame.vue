@@ -21,10 +21,9 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop, namespace } from 'nuxt-property-decorator'
-import { Player, Game, GameParams } from '~/models/tournament'
+import { Player, Game, PlayerKeys, GameParams } from '~/models/tournament'
 
 const RoundStore = namespace('rounds')
-type PlayerKeys = 'player1' | 'player2'
 
 @Component({})
 export default class TournamentGame extends Vue {

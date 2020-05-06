@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import { ActionTree, GetterTree, MutationTree } from 'vuex'
-import { Game, GameParams } from '~/models/tournament'
+import { Game, GameParams, PlayerKeys } from '~/models/tournament'
 import User from '~/models/User'
+import { Player } from '~/models/FirestoreTournament'
 
 interface Round {
   games: Game[]
@@ -31,7 +32,21 @@ export const mutations: MutationTree<RootState> = {
   },
   [UPDATE_GAME_WINNER] (state: State, gameParams: GameParams) {
     const { roundIdx, gameIdx, game } = gameParams
+    const winnerKey = Object.keys(game).filter((player) => {
+      return game[player as PlayerKeys].winner
+    })
+    const winnerPlayer = { ...game[winnerKey[0] as PlayerKeys] }
+    winnerPlayer.winner = undefined
+    let nextPlayerKey: PlayerKeys
+    if (gameIdx % 2 === 0) {
+      nextPlayerKey = 'player1'
+    } else {
+      nextPlayerKey = 'player2'
+    }
+    const nextGameIdx = Math.floor(gameIdx / 2)
+
     Vue.set(state.userTournament.rounds.slice(-roundIdx - 1)[0].games, gameIdx, game)
+    Vue.set(state.userTournament.rounds.slice(-roundIdx)[0].games[nextGameIdx], nextPlayerKey, winnerPlayer)
   }
 }
 
