@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import { ActionTree, GetterTree, MutationTree } from 'vuex'
 import { Game, GameParams } from '~/models/tournament'
+import User from '~/models/User'
 
 interface Round {
   games: Game[]
@@ -36,7 +37,10 @@ export const mutations: MutationTree<RootState> = {
 
 export const actions: ActionTree<RootState, RootState> = {
   async fetchUserTournament ({ commit, rootGetters }, id: string) {
-    const user = rootGetters['users/user']
+    let user = rootGetters['users/user']
+    if (!(user instanceof User)) {
+      user = new User(user.id, user.name, user.image, user.token, user.secret, user.twitterId)
+    }
     const tournament = await user.findUserTournamentById(id)
     commit(SET_USER_TOURNAMENT, tournament)
   },
