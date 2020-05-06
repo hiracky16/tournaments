@@ -6,9 +6,7 @@
 import Vue from 'vue'
 import { Component, namespace } from 'nuxt-property-decorator'
 import TournamentIndexTemplate from '~/components/templates/tournament/_id/TournamentIndexTemplate.vue'
-// import FirestoreTournament from '@/models/FirestoreTournament'
 
-// const TournamentStore = namespace('tournaments')
 const RoundStore = namespace('rounds')
 
 @Component({

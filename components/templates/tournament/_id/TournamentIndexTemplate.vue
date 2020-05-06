@@ -12,9 +12,8 @@
             このトーナメントを編集
           </nuxt-link>
         </div>
-
       </div>
-      <TournamentLayout :rounds="rounds" :isEditable="false" />
+      <TournamentLayout :rounds="rounds" :is-editable="false" />
     </div>
   </div>  
 </template>

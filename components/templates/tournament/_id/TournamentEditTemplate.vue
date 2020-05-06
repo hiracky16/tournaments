@@ -13,9 +13,9 @@
           </button>
         </div>
       </div>
-      <TournamentLayout :rounds="rounds" :isEditable="true" />
+      <TournamentLayout :rounds="rounds" :is-editable="true" />
     </div>
-  </div>  
+  </div>
 </template>
 
 <script lang="ts">
