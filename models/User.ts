@@ -85,4 +85,25 @@ export default class User {
       .get()
     return res.data()
   }
+
+  async fetchUserTournaments () {
+    const res = await firebase
+      .firestore()
+      .collection(`users/${this.id}/tournaments`)
+      .get()
+    const tournaments = res.docs.map((t) => {
+      return new UserTournament(t.id, t.data()?.name)
+    })
+    return tournaments
+  }
+}
+
+export class UserTournament {
+  id: string
+  name: string
+
+  constructor (id: string, name: string) {
+    this.id = id
+    this.name = name
+  }
 }
