@@ -36,7 +36,7 @@ export const mutations: MutationTree<RootState> = {
     round.games[gameParams.gameIdx] = gameParams.game
     state.rounds = rounds
   },
-  // TODO: type
+  // FIXME: type
   [SET_USER_TOURNAMENT] (state: State, tournament: any) {
     state.userTournament = tournament
   }

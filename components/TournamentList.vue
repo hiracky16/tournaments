@@ -11,7 +11,7 @@
         >
           <div
             class="panel-block"
-            @click="clickAction(tournament.id)"
+            @click="clickAction(tournament)"
           >
             {{ tournament.name }}
           </div>
@@ -31,8 +31,8 @@ export default class Tournament extends Vue {
   tournaments!: { [key: string]: string }[]
 
   @Emit('click')
-  clickAction (id: string) {
-    return id
+  clickAction (tournament: { [key: string]: string }) {
+    return tournament
   }
 }
 </script>
