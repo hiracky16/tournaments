@@ -57,7 +57,8 @@ export default class User {
   async storeUser () {
     await ref.doc(this.id).set({
       name: this.name,
-      image: this.image
+      image: this.image,
+      twitterId: this.twitterId
     })
   }
 
