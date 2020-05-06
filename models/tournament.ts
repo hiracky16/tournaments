@@ -9,6 +9,8 @@ export type Game = {
   player2: Player,
 }
 
+export type PlayerKeys = 'player1' | 'player2'
+
 export type GameParams = {
   gameIdx: number,
   roundIdx: number,
