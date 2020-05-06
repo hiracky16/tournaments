@@ -1,6 +1,6 @@
 
 export default {
-  mode: 'universal',
+  mode: 'spa',
   /*
   ** Headers of the page
   */
@@ -29,8 +29,7 @@ export default {
   */
   plugins: [
     '~/plugins/firebase',
-    { src: '~/plugins/bracket', mode: 'client' },
-    { src: '~/plugins/localStorage.ts', mode: false }
+    { src: '~/plugins/bracket', mode: 'client' }
   ],
   /*
   ** Nuxt.js dev-modules
