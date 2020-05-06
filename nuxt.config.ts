@@ -29,7 +29,8 @@ export default {
   */
   plugins: [
     '~/plugins/firebase',
-    { src: '~/plugins/bracket', mode: 'client' }
+    { src: '~/plugins/bracket', mode: 'client' },
+    { src: '~/plugins/localStorage.ts', mode: false }
   ],
   /*
   ** Nuxt.js dev-modules
