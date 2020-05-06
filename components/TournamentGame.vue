@@ -1,7 +1,7 @@
 <template>
   <div class="TournamentGame">
     <div
-      :class="winLoseStatus(game.player1.winner)"
+      :class="status(game.player1.winner)"
       class="TournamentGame__player"
       @click="updateGame('player1')"
     >
@@ -9,7 +9,7 @@
     </div>
     <div
       v-if="game.player2"
-      :class="winLoseStatus(game.player2.winner)"
+      :class="status(game.player2.winner)"
       class="TournamentGame__player"
       @click="updateGame('player2')"
     >
@@ -48,9 +48,11 @@ export default class TournamentGame extends Vue {
   @RoundStore.Action('updateGameWinner')
   updateGameWinner!: (gameParams: GameParams) => void
 
-  get winLoseStatus () {
+  get status () {
     return (winner: boolean) => {
-      if (winner === undefined) {
+      if (this.disabled) {
+        return 'disabled'
+      } else if (winner === undefined) {
         return 'undecided'
       } else if (winner) {
         return 'winner'
@@ -60,7 +62,19 @@ export default class TournamentGame extends Vue {
     }
   }
 
+  get disabled () {
+    if (this.game.player1.id !== '' && this.game.player2.id !== '') {
+      return false
+    } else {
+      return true
+    }
+  }
+
   updateGame (player: PlayerKeys) {
+    if (this.disabled) {
+      return
+    }
+
     const newGame = {
       player1: { ...this.game.player1 },
       player2: { ...this.game.player2 }
@@ -102,6 +116,15 @@ export default class TournamentGame extends Vue {
     cursor: pointer;
     &:hover {
       background: #eee;
+    }
+    &.disabled {
+      background: #eee;
+      color: #999;
+      cursor: auto;
+      &:hover {
+        background: #eee;
+        color: #999;
+      }
     }
     &.undecided {
       background: #fff8db;
