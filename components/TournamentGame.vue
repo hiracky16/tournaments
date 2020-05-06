@@ -24,6 +24,7 @@ import { Component, Prop, namespace } from 'nuxt-property-decorator'
 import { Player, Game, GameParams } from '~/models/tournament'
 
 const RoundStore = namespace('rounds')
+type PlayerKeys = 'player1' | 'player2'
 
 @Component({})
 export default class TournamentGame extends Vue {
@@ -60,13 +61,15 @@ export default class TournamentGame extends Vue {
     }
   }
 
-  updateGame (player: 'player1' | 'player2') {
-    const newGame = Object.assign(
-      {},
-      this.game
-    )
-    newGame.player1.winner = false
-    newGame.player2.winner = false
+  updateGame (player: PlayerKeys) {
+    const newGame = {
+      player1: { ...this.game.player1 },
+      player2: { ...this.game.player2 }
+    }
+
+    Object.keys(newGame).forEach((key) => {
+      newGame[key as PlayerKeys].winner = false
+    })
 
     newGame[player].winner = true
 
