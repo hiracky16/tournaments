@@ -8,24 +8,28 @@ const TWITTER_POST_ENDPOINT = 'statuses/update.json'
 const ref = firebase.firestore().collection('users')
 
 export default class User {
-  id: string;
-  name: string;
-  image: string;
-  token: string;
-  secret: string;
+  id: string
+  name: string
+  image: string
+  token: string
+  secret: string
+  twitterId: string | null | undefined
+  description: string | null | undefined
 
   constructor (
     id: string,
     name: string,
     image: string,
     token: string,
-    secret: string
+    secret: string,
+    twitterId: string | null | undefined
   ) {
     this.id = id
     this.name = name
     this.image = image
     this.token = token
     this.secret = secret
+    this.twitterId = twitterId
   }
 
   static async login () {
@@ -35,12 +39,14 @@ export default class User {
     const token = (res?.credential as any)?.accessToken
     const secret = (res?.credential as any)?.secret
     const firebaseUser = res.user
+    const twtterId = res.additionalUserInfo?.username
     return new User(
       firebaseUser?.uid || '',
       firebaseUser?.displayName || '',
       firebaseUser?.photoURL || '',
       token,
-      secret
+      secret,
+      twtterId
     )
   }
 

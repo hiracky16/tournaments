@@ -15,7 +15,9 @@
                   {{ user.name }}
                 </p>
                 <p class="subtitle is-6">
-                  @johnsmith
+                  <a :href="twitterLink" target="_blank">
+                    @{{ user.twitterId }}
+                  </a>
                 </p>
               </div>
             </div>
@@ -24,7 +26,7 @@
       </div>
     </section>
     <section class="section">
-      <div class="container" id="buttonclass">
+      <div id="buttonclass" class="container">
         <button class="button is-primary is-medium" @click="toTournamentList">
           新しいトーナメントを探す
         </button>
@@ -69,6 +71,10 @@ export default class Home extends Vue {
 
   @UserStore.Getter('user')
   user!: User
+
+  get twitterLink () {
+    return `https://twitter.com/${this.user.twitterId}`
+  }
 
   toTournamentList () {
     this.$router.push('tournaments')
