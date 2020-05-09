@@ -54,6 +54,7 @@ const UserStore = namespace('users')
   components: {
     TournamentList
   },
+  middleware: 'auth',
   fetch ({ store }) {
     store.dispatch('users/fetchUserTournaments')
   }
