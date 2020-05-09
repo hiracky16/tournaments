@@ -170,6 +170,11 @@ export default class TournamentGame extends Vue {
       font-weight: bold;
       border-bottom: none;
       background: #d6fff8;
+      &.editable {
+        &:hover {
+          background: #d6fff8;
+        }
+      }
     }
     &.loser {
       color: #aaa;
