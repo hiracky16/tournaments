@@ -32,11 +32,21 @@ export const mutations: MutationTree<RootState> = {
   },
   [UPDATE_GAME_WINNER] (state: State, gameParams: UpdateGameParams) {
     const { gameIdx, roundIdx, game } = gameParams
-    const winnerKey = Object.keys(game).filter((player) => {
+
+    // 操作したゲーム自体の勝敗変更
+    const currentRoundGames = state.userTournament.rounds.slice(-roundIdx - 1)[0].games
+    Vue.set(currentRoundGames, gameIdx, game)
+
+    // 決勝戦の場合は処理を終了する
+    if (roundIdx === 0) { return }
+
+    // 次のゲームのプレーヤー変更
+    const winnerPlayerKey = Object.keys(game).filter((player) => {
       return game[player as PlayerKeys].winner
     })
-    const winnerPlayer = { ...game[winnerKey[0] as PlayerKeys] }
+    const winnerPlayer = { ...game[winnerPlayerKey[0] as PlayerKeys] }
     winnerPlayer.winner = undefined
+
     let nextPlayerKey: PlayerKeys
     if (gameIdx % 2 === 0) {
       nextPlayerKey = 'player1'
@@ -44,12 +54,9 @@ export const mutations: MutationTree<RootState> = {
       nextPlayerKey = 'player2'
     }
     const nextGameIdx = Math.floor(gameIdx / 2)
-
-    const currentRoundGames = state.userTournament.rounds.slice(-roundIdx - 1)[0].games
     const nextGame = state.userTournament.rounds.slice(-roundIdx)[0].games[nextGameIdx]
     const nextGamePlayer = nextGame[nextPlayerKey]
 
-    Vue.set(currentRoundGames, gameIdx, game)
     Vue.set(nextGamePlayer, 'id', winnerPlayer.id)
     Vue.set(nextGamePlayer, 'name', winnerPlayer.name)
   },
@@ -65,11 +72,11 @@ export const mutations: MutationTree<RootState> = {
 
     const nextGameIdx = Math.floor(gameIdx / 2)
     const nextGame = state.userTournament.rounds.slice(-roundIdx)[0].games[nextGameIdx]
-    const nextPlayer = nextGame[nextPlayerKey]
+    const nextGamePlayer = nextGame[nextPlayerKey]
 
-    if (player.winner && nextPlayer.id !== '' && nextPlayer.id !== player.id) {
-      Vue.set(nextPlayer, 'id', player.id)
-      Vue.set(nextPlayer, 'name', player.name)
+    if (player.winner && nextGamePlayer.id !== '' && nextGamePlayer.id !== player.id) {
+      Vue.set(nextGamePlayer, 'id', player.id)
+      Vue.set(nextGamePlayer, 'name', player.name)
     }
   }
 }
@@ -83,10 +90,10 @@ export const actions: ActionTree<RootState, RootState> = {
     const tournament = await user.findUserTournamentById(id)
     commit(SET_USER_TOURNAMENT, tournament)
   },
-  updateGameWinner ({ commit }, gameParams: UpdateGameParams) {
-    commit(UPDATE_GAME_WINNER, gameParams)
+  updateGameWinner ({ commit }, params: UpdateGameParams) {
+    commit(UPDATE_GAME_WINNER, params)
   },
-  updateNextGamePlayer ({ commit }, gameParams: UpdateNextGamePlayerParams) {
-    commit(UPDATE_NEXT_GAME_PLAYER, gameParams)
+  updateNextGamePlayer ({ commit }, params: UpdateNextGamePlayerParams) {
+    commit(UPDATE_NEXT_GAME_PLAYER, params)
   }
 }
