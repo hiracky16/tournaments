@@ -2,7 +2,7 @@
   <div>
     <header class="container">
       <nuxt-link to="/">
-          <img src="~/assets/logo_sidepink.png" width="300px">
+          <img src="~/assets/logo_sidepink.png" width="150px">
       </nuxt-link>
       <nav>
         <ul>
