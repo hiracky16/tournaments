@@ -26,8 +26,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component, Prop, namespace } from 'nuxt-property-decorator'
-import { Player, Game, PlayerKeys, GameParams } from '~/models/tournament'
+import { Component, Prop, namespace, Watch } from 'nuxt-property-decorator'
+import { Player, Game, PlayerKeys, UpdateGameParams, UpdateNextGamePlayerParams } from '~/models/tournament'
 
 const RoundStore = namespace('rounds')
 
@@ -58,8 +58,29 @@ export default class TournamentGame extends Vue {
   })
   isEditable!: boolean
 
+  @Watch('game.player1.name')
+  onPlayer1Change () {
+    this.updateNextGamePlayer({
+      gameIdx: this.gameIdx,
+      roundIdx: this.roundIdx,
+      player: this.game.player1
+    })
+  }
+
+  @Watch('game.player2.name')
+  onPlayer2Change () {
+    this.updateNextGamePlayer({
+      gameIdx: this.gameIdx,
+      roundIdx: this.roundIdx,
+      player: this.game.player2
+    })
+  }
+
   @RoundStore.Action('updateGameWinner')
-  updateGameWinner!: (gameParams: GameParams) => void
+  updateGameWinner!: (gameParams: UpdateGameParams) => void
+
+  @RoundStore.Action('updateNextGamePlayer')
+  updateNextGamePlayer!: (gameParams: UpdateNextGamePlayerParams) => void
 
   get status () {
     return (winner: boolean) => {
