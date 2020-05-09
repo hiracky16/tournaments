@@ -1,18 +1,23 @@
 import Vue from 'vue'
 import { ActionTree, GetterTree, MutationTree } from 'vuex'
-import { Game, UpdateGameParams, UpdateNextGamePlayerParams, PlayerKeys } from '~/models/tournament'
+import { Round, UpdateGameParams, UpdateNextGamePlayerParams, PlayerKeys } from '~/models/tournament'
 import User from '~/models/User'
+import firebase from '@/plugins/firebase'
 
-interface Round {
-  games: Game[]
+type UserTournamentType = {
+  name: string,
+  rounds: Round[],
 }
 
 type State = {
-  userTournament: any
+  userTournament: UserTournamentType,
 }
 
 export const state = () => ({
-  userTournament: null as any
+  userTournament: {
+    name: '',
+    rounds: []
+  } as UserTournamentType
 })
 
 export type RootState = ReturnType<typeof state>
@@ -95,5 +100,17 @@ export const actions: ActionTree<RootState, RootState> = {
   },
   updateNextGamePlayer ({ commit }, params: UpdateNextGamePlayerParams) {
     commit(UPDATE_NEXT_GAME_PLAYER, params)
+  },
+  // eslint-disable-next-line require-await
+  async storeUserTournament ({ getters, rootGetters }, params: { tournamentId: string }) {
+    const { tournamentId } = params
+    const user = rootGetters['users/user']
+
+    await firebase
+      .firestore()
+      .collection(`users/${user.id}/tournaments/`)
+      .doc(tournamentId)
+      .set({ round: getters.userTournament.rounds })
+    return tournamentId
   }
 }

@@ -20,9 +20,11 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component, Prop } from 'nuxt-property-decorator'
+import { Component, Prop, namespace } from 'nuxt-property-decorator'
 import TournamentLayout from '~/components/TournamentLayout.vue'
-import { Game } from '~/models/tournament'
+import { Round } from '~/models/tournament'
+
+const RoundStore = namespace('rounds')
 
 @Component({
   components: { TournamentLayout }
@@ -32,20 +34,22 @@ export default class TournamentEditTemplate extends Vue {
     type: Array,
     required: true
   })
-  rounds!: {
-    games: Game[]
-  }[];
+  rounds!: Round[];
 
-  confirmEdit () {
+  @RoundStore.Action('storeUserTournament')
+  storeUserTournament!: ({ tournamentId }: {tournamentId: string}) => void
+
+  async confirmEdit () {
     // TODO: モーダルを表示して完了確認→シェア確認できるようにする
-    const res = confirm('編集を保存しますか？');
+    const res = confirm('編集を保存しますか？')
     if (res) {
-      this.$router.push(`/tournament/${this.$route.params.id}/complete`);
+      await this.storeUserTournament({ tournamentId: this.$route.params.id })
+      this.$router.push(`/tournament/${this.$route.params.id}/complete`)
     }
   }
 
   confirmCancel () {
-    const res = confirm('編集内容を破棄して戻りますか？');
+    const res = confirm('編集内容を破棄して戻りますか？')
     if (res) {
       this.$router.push(`/tournament/${this.$route.params.id}`)
     }
