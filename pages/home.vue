@@ -28,7 +28,7 @@
     <section class="section">
       <div id="buttonclass" class="container">
         <button class="button is-primary is-medium" @click="toTournamentList">
-          新しいトーナメントを探す
+          新しいトーナメントを作成
         </button>
       </div>
     </section>
