@@ -1,8 +1,8 @@
 <template>
   <div>
     <header class="container">
-      <nuxt-link to="/">
-          <img src="~/assets/logo_sidepink.png" width="300px">
+      <nuxt-link :to="link">
+        <img src="~/assets/logo_sidepink.png" width="300px">
       </nuxt-link>
       <nav>
         <ul @click="clickNav">
@@ -31,6 +31,10 @@ export default class Header extends Vue {
 
   get navText () {
     return this.isLogin ? 'ログアウト' : 'ログイン'
+  }
+
+  get link () {
+    return this.isLogin ? '/home' : '/'
   }
 
   async clickNav () {
