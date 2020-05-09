@@ -109,7 +109,7 @@ export const actions: ActionTree<RootState, RootState> = {
       .firestore()
       .collection(`users/${user.id}/tournaments/`)
       .doc(tournamentId)
-      .set({ rounds: getters.userTournament.rounds })
+      .set(getters.userTournament)
     return tournamentId
   }
 }
