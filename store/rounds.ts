@@ -101,7 +101,6 @@ export const actions: ActionTree<RootState, RootState> = {
   updateNextGamePlayer ({ commit }, params: UpdateNextGamePlayerParams) {
     commit(UPDATE_NEXT_GAME_PLAYER, params)
   },
-  // eslint-disable-next-line require-await
   async storeUserTournament ({ getters, rootGetters }, params: { tournamentId: string }) {
     const { tournamentId } = params
     const user = rootGetters['users/user']
@@ -110,7 +109,7 @@ export const actions: ActionTree<RootState, RootState> = {
       .firestore()
       .collection(`users/${user.id}/tournaments/`)
       .doc(tournamentId)
-      .set({ round: getters.userTournament.rounds })
+      .set({ rounds: getters.userTournament.rounds })
     return tournamentId
   }
 }

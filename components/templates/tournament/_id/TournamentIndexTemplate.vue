@@ -15,9 +15,8 @@
       </div>
       <TournamentLayout :rounds="rounds" :is-editable="false" />
     </div>
-  </div>  
+  </div>
 </template>
-e
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop } from 'nuxt-property-decorator'
