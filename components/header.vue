@@ -2,10 +2,7 @@
   <div>
     <header class="container">
       <nuxt-link to="/">
-        <h1>
-          <!-- <img src="~/assets/logo.png" width="200px"> -->
-          Idol Tournament
-        </h1>
+          <img src="~/assets/logo_sidepink.png" width="300px">
       </nuxt-link>
       <nav>
         <ul>

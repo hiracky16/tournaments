@@ -45,5 +45,8 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^6.1.0",
     "eslint-plugin-nuxt": ">=0.4.2"
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/hiracky16/tournaments.git",
+  "license": "MIT"
 }
