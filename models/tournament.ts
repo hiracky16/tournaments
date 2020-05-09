@@ -11,8 +11,14 @@ export type Game = {
 
 export type PlayerKeys = 'player1' | 'player2'
 
-export type GameParams = {
+export type UpdateGameParams = {
   gameIdx: number,
   roundIdx: number,
   game: Game,
+}
+
+export type UpdateNextGamePlayerParams = {
+  gameIdx: number,
+  roundIdx: number,
+  player: Player,
 }
