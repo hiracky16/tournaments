@@ -6,6 +6,9 @@ service cloud.firestore {
 			match /tournaments/{tournamentId} {
 				allow write, read: if request.auth != null;
 			}
+			match /tweets/{tweetId} {
+				allow write, read: if request.auth != null;
+			}
 		}
 		match /tournaments/{tournamentId} {
 			allow read;

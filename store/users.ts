@@ -27,8 +27,6 @@ export const getters: GetterTree<RootState, RootState> = {
         data.id,
         data.name,
         data.image,
-        data.token,
-        data.secret,
         data.twitterId
       )
     }
@@ -57,7 +55,6 @@ export const actions: ActionTree<RootState, RootState> = {
   async login ({ commit }) {
     try {
       const user = await User.login()
-      const tournaments = user.fetchUserTournaments()
       commit(SET_USER, user)
       commit(SET_IS_LOGIN, true)
       user.storeUser()

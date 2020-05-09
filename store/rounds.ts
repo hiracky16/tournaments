@@ -57,7 +57,7 @@ export const actions: ActionTree<RootState, RootState> = {
   async fetchUserTournament ({ commit, rootGetters }, id: string) {
     let user = rootGetters['users/user']
     if (!(user instanceof User)) {
-      user = new User(user.id, user.name, user.image, user.token, user.secret, user.twitterId)
+      user = new User(user.id, user.name, user.image, user.twitterId)
     }
     const tournament = await user.findUserTournamentById(id)
     commit(SET_USER_TOURNAMENT, tournament)

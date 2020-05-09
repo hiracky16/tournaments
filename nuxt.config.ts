@@ -54,17 +54,7 @@ export default {
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  axios: {
-    proxy: true
-  },
-  proxy: {
-    '/api': {
-      target: 'https://api.twitter.com/1.1/',
-      pathRewrite: {
-        '^/api': '/'
-      }
-    }
-  },
+  axios: {},
   /*
   ** Build configuration
   */
@@ -84,8 +74,5 @@ export default {
         fs: 'empty'
       }
     }
-  },
-  serverMiddleware: [
-    '~/server'
-  ]
+  }
 }
