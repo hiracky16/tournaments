@@ -1,9 +1,5 @@
+import axios from 'axios'
 import firebase from '@/plugins/firebase'
-import Twitter from '@/plugins/TwitterClient'
-
-require('dotenv').config()
-
-const TWITTER_POST_ENDPOINT = 'statuses/update.json'
 
 const ref = firebase.firestore().collection('users')
 
@@ -63,18 +59,9 @@ export default class User {
   }
 
   async tweet (text: string) {
-    const twitter = new Twitter(
-      process.env.TWITTER_API_KEY,
-      process.env.TWITTER_API_SECRET_KEY,
-      this.token,
-      this.secret
-    )
-    const params = [
-      { key: 'status', value: text }
-    ]
-    const url = `/api/${TWITTER_POST_ENDPOINT}`
-    const json = await twitter.post(url, params)
-    console.log(json)
+    const params = { text, token: this.token, secret: this.secret }
+    const res = await axios.post('/api/tweets', params)
+    console.log(res)
   }
 
   async findUserTournamentById (tournamentId: string) {

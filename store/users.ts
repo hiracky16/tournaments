@@ -17,7 +17,23 @@ export type RootState = ReturnType<typeof state>
 
 export const getters: GetterTree<RootState, RootState> = {
   isLogin: state => state.isLogin,
-  user: state => state.user,
+  user: (state) => {
+    if (!state.user) {
+      return null
+    }
+    if (!(state.user instanceof User)) {
+      const data = (state.user as User)
+      return new User(
+        data.id,
+        data.name,
+        data.image,
+        data.token,
+        data.secret,
+        data.twitterId
+      )
+    }
+    return state.user
+  },
   userTournaments: state => state.userTournaments
 }
 
@@ -58,8 +74,8 @@ export const actions: ActionTree<RootState, RootState> = {
     commit(SET_USER, null)
     commit(SET_USER_TOURNAMENTS, [])
   },
-  async tweet ({ getters }) {
-    await getters.user.tweet()
+  async tweet ({ getters }, text: string) {
+    await getters.user.tweet(text)
   },
   async fetchUserTournaments ({ commit, getters }) {
     commit(SET_USER_TOURNAMENTS, await getters.user.fetchUserTournaments())

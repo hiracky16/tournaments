@@ -84,5 +84,8 @@ export default {
         fs: 'empty'
       }
     }
-  }
+  },
+  serverMiddleware: [
+    '~/server'
+  ]
 }

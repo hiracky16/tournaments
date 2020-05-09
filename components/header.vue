@@ -9,22 +9,14 @@
       </nuxt-link>
       <nav>
         <ul>
-          <!-- TODO: isLoginで切り替え -->
-          <li v-if="true">
-            <nuxt-link to="/login">
-              ログイン
-            </nuxt-link>
+          <li v-if="!isLogin">
+            ログイン
           </li>
-          <li v-if="false">
-            <nuxt-link to="/logout">
+          <li v-if="isLogin">
+            <div @clikc="logoutTwitter">
               ログアウト
-            </nuxt-link>
+            </div>
           </li>
-          <!-- <li>
-            <nuxt-link to="/tournament">
-              トーナメント
-            </nuxt-link>
-          </li> -->
         </ul>
       </nav>
     </header>
@@ -32,10 +24,23 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import { Component } from 'nuxt-property-decorator'
+import { Component, namespace } from 'nuxt-property-decorator'
+
+const UserStore = namespace('users')
 
 @Component({})
-export default class Header extends Vue {}
+export default class Header extends Vue {
+  @UserStore.Getter('isLogin')
+  isLogin!: boolean
+
+  @UserStore.Action('logout')
+  logout!: () => void
+
+  async logoutTwitter () {
+    await this.logout()
+    this.$router.push('/')
+  }
+}
 </script>
 
 <style lang="scss" scoped>
