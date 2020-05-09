@@ -81,7 +81,6 @@ export default class Home extends Vue {
   }
 
   clickTournament (event: UserTournament) {
-    console.log(event)
     this.$router.push(`/tournament/${event.id}`)
   }
 }

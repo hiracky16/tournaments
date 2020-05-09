@@ -8,15 +8,8 @@
         </h1>
       </nuxt-link>
       <nav>
-        <ul>
-          <li v-if="!isLogin">
-            ログイン
-          </li>
-          <li v-if="isLogin">
-            <div @clikc="logoutTwitter">
-              ログアウト
-            </div>
-          </li>
+        <ul @click="clickNav">
+          <li>{{ navText }}</li>
         </ul>
       </nav>
     </header>
@@ -36,9 +29,21 @@ export default class Header extends Vue {
   @UserStore.Action('logout')
   logout!: () => void
 
-  async logoutTwitter () {
-    await this.logout()
-    this.$router.push('/')
+  @UserStore.Action('login')
+  login!: () => void
+
+  get navText () {
+    return this.isLogin ? 'ログアウト' : 'ログイン'
+  }
+
+  async clickNav () {
+    if (this.isLogin) {
+      await this.logout()
+      this.$router.push('/')
+    } else {
+      await this.login()
+      this.$router.push('/home')
+    }
   }
 }
 </script>
