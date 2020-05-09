@@ -11,8 +11,8 @@ const RoundStore = namespace('rounds')
 
 @Component({
   components: { TournamentIndexTemplate },
-  fetch ({ store, params }) {
-    store.dispatch('rounds/fetchUserTournament', params.id)
+  async fetch ({ store, params }) {
+    await store.dispatch('rounds/fetchUserTournament', params.id)
   }
 })
 export default class TournamentDetail extends Vue {
@@ -21,7 +21,7 @@ export default class TournamentDetail extends Vue {
   tournament!: any
 
   get rounds () {
-    return this.tournament.rounds
+    return this.tournament?.rounds
   }
 }
 </script>

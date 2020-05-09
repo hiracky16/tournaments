@@ -1,19 +1,12 @@
 <template>
   <div>
     <header class="container">
-      <nuxt-link to="/">
-          <img src="~/assets/logo_sidepink.png" width="150px">
+      <nuxt-link :to="link">
+        <img src="~/assets/logo_sidepink.png" width="150px">
       </nuxt-link>
       <nav>
-        <ul>
-          <li v-if="!isLogin">
-            ログイン
-          </li>
-          <li v-if="isLogin">
-            <div @clikc="logoutTwitter">
-              ログアウト
-            </div>
-          </li>
+        <ul @click="clickNav">
+          <li>{{ navText }}</li>
         </ul>
       </nav>
     </header>
@@ -33,9 +26,25 @@ export default class Header extends Vue {
   @UserStore.Action('logout')
   logout!: () => void
 
-  async logoutTwitter () {
-    await this.logout()
-    this.$router.push('/')
+  @UserStore.Action('login')
+  login!: () => void
+
+  get navText () {
+    return this.isLogin ? 'ログアウト' : 'ログイン'
+  }
+
+  get link () {
+    return this.isLogin ? '/home' : '/'
+  }
+
+  async clickNav () {
+    if (this.isLogin) {
+      await this.logout()
+      this.$router.push('/')
+    } else {
+      await this.login()
+      this.$router.push('/home')
+    }
   }
 }
 </script>

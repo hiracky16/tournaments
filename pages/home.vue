@@ -30,9 +30,6 @@
         <button class="button is-primary is-medium" @click="toTournamentList">
           新しいトーナメントを作成
         </button>
-        <button class="button is-primary is-medium" @click="clickTweetButton">
-          ツイート
-        </button>
       </div>
     </section>
     <TournamentList
@@ -47,6 +44,7 @@ import Vue from 'vue'
 import { Component, namespace } from 'nuxt-property-decorator'
 import TournamentList from '~/components/TournamentList.vue'
 import User, { UserTournament } from '~/models/User.ts'
+import Tournament from '~/components/TournamentList.vue'
 
 const UserStore = namespace('users')
 
@@ -54,6 +52,7 @@ const UserStore = namespace('users')
   components: {
     TournamentList
   },
+  middleware: 'auth',
   fetch ({ store }) {
     store.dispatch('users/fetchUserTournaments')
   }
@@ -64,9 +63,6 @@ export default class Home extends Vue {
 
   @UserStore.Action('logout')
   logout!: () => void
-
-  @UserStore.Action('tweet')
-  tweet!: (text: string) => void
 
   @UserStore.Getter('user')
   user!: User
@@ -84,12 +80,8 @@ export default class Home extends Vue {
     this.$router.push('/')
   }
 
-  async clickTweetButton () {
-    await this.tweet('今日は寒い')
-  }
-
-  async clickTournament (event: string) {
-    // TODO
+  clickTournament (event: UserTournament) {
+    this.$router.push(`/tournament/${event.id}`)
   }
 }
 </script>
