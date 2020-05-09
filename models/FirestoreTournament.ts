@@ -1,3 +1,4 @@
+import { Round } from './tournament'
 import firebase from '@/plugins/firebase'
 
 const ref = firebase.firestore().collection('tournaments')
