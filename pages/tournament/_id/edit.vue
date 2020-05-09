@@ -11,8 +11,8 @@ const RoundStore = namespace('rounds')
 
 @Component({
   components: { TournamentEditTemplate },
-  fetch ({ store, params }) {
-    store.dispatch('rounds/fetchUserTournament', params.id)
+  async fetch ({ store, params }) {
+    await store.dispatch('rounds/fetchUserTournament', params.id)
   }
 })
 export default class TournamentEdit extends Vue {

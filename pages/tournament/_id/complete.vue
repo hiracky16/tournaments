@@ -23,8 +23,8 @@ import { Component, namespace } from 'nuxt-property-decorator'
 const RoundStore = namespace('rounds')
 
 @Component({
-  fetch ({ store, params }) {
-    store.dispatch('rounds/fetchUserTournament', params.id)
+  async fetch ({ store, params }) {
+    await store.dispatch('rounds/fetchUserTournament', params.id)
   }
 })
 export default class Home extends Vue {
