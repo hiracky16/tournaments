@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div>
-        <img src="~/assets/logo_verticalpink.png" width="400px">
+        <img src="~/assets/logo_verticalpink.png" width="200px">
       <h2 class="subtitle">
         トーナメントで優勝を決める
       </h2>
