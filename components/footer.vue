@@ -1,6 +1,6 @@
 <template>
   <div>
-    <footer><small>&copy; Idol Tournaments all rights reserved.</small></footer>
+    <footer><small>&copy; Uniqa all rights reserved.</small></footer>
   </div>
 </template>
 <script lang="ts">

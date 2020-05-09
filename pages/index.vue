@@ -1,11 +1,9 @@
 <template>
   <div class="container">
     <div>
-      <h1 class="title">
-        アイドルトーナメント（仮）
-      </h1>
+        <img src="~/assets/logo_verticalpink.png" width="400px">
       <h2 class="subtitle">
-        トーナメント形式で一番を決める
+        トーナメントで優勝を決める
       </h2>
       <button
         class="button is-primary"
