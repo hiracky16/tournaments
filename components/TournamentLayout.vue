@@ -5,6 +5,7 @@
         :game-idx="0"
         :round-idx="0"
         :game="rounds.slice(-1)[0].games[0]"
+        :is-editable="isEditable"
         class="TournamentLayout__game"
       />
       <div class="TournamentLayout__prev-block">
@@ -17,6 +18,7 @@
             :game-idx="i2"
             :round-idx="1"
             :game="game_r2"
+            :is-editable="isEditable"
             class="TournamentLayout__game"
           />
           <div class="TournamentLayout__prev-block">
@@ -29,6 +31,7 @@
                 :game-idx="(i2 * 2) + i3"
                 :round-idx="2"
                 :game="game_r3"
+                :is-editable="isEditable"
                 class="TournamentLayout__game"
               />
               <div class="TournamentLayout__prev-block">
@@ -41,6 +44,7 @@
                     :game-idx="(i2 * 4) + (i3 * 2) + i4"
                     :round-idx="3"
                     :game="game_r4"
+                    :is-editable="isEditable"
                     class="TournamentLayout__game"
                   />
                   <div class="TournamentLayout__prev-block">
@@ -53,6 +57,7 @@
                         :game-idx="(i2 * 8) + (i3 * 4) + (i4 * 2) + i5"
                         :round-idx="4"
                         :game="game_r5"
+                        :is-editable="isEditable"
                         class="TournamentLayout__game"
                       />
                     </div>

@@ -1,7 +1,10 @@
 <template>
   <div class="TournamentGame">
     <div
-      :class="status(game.player1.winner)"
+      :class="[
+        status(game.player1.winner),
+        isEditable ? 'editable' : '',
+      ]"
       class="TournamentGame__player"
       @click="updateGame('player1')"
     >
@@ -9,7 +12,10 @@
     </div>
     <div
       v-if="game.player2"
-      :class="status(game.player2.winner)"
+      :class="[
+        status(game.player2.winner),
+        isEditable ? 'editable' : '',
+      ]"
       class="TournamentGame__player"
       @click="updateGame('player2')"
     >
@@ -45,6 +51,13 @@ export default class TournamentGame extends Vue {
   })
   game!: Game
 
+  @Prop({
+    type: Boolean,
+    required: false,
+    default: false
+  })
+  isEditable!: boolean
+
   @RoundStore.Action('updateGameWinner')
   updateGameWinner!: (gameParams: GameParams) => void
 
@@ -71,6 +84,10 @@ export default class TournamentGame extends Vue {
   }
 
   updateGame (player: PlayerKeys) {
+    if (!this.isEditable) {
+      return
+    }
+
     if (this.disabled) {
       return
     }
@@ -106,41 +123,57 @@ export default class TournamentGame extends Vue {
 <style lang="scss" scoped>
 .TournamentGame {
   &__player {
-    padding: 5px 10px;
-    font-size: 1em;
-    width: 160px;
+    padding: 8px 10px;
+    font-size: .85em;
+    width: 180px;
     text-align: center;
-    text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap;
-    cursor: pointer;
-    &:hover {
-      background: #eee;
+    border-bottom: 1px solid;
+    &:last-child {
+      border-bottom: none;
     }
-    &.disabled {
-      background: #eee;
-      color: #999;
-      cursor: auto;
+    &.editable {
+      cursor: pointer;
       &:hover {
         background: #eee;
+      }
+    }
+    &.disabled {
+      color: #666;
+      cursor: auto;
+      border-bottom-color: #ccc;
+      &.editable {
         color: #999;
+        background: #eee;
+        &:hover {
+          background: #eee;
+          color: #999;
+        }
       }
     }
     &.undecided {
-      background: #fff8db;
-      color: #ff9900;
+      color: #999;
       font-weight: bold;
-      &:hover {
-        background: #ffe787;
+      background: #f5f5f5;
+      border-bottom-color: #ccc;
+      &.editable {
+        color: #ff9900;
+        background: #fff8db;
+        border-bottom-color: #ffcc00;
+        &:hover {
+          background: #ffe787;
+        }
       }
     }
     &.winner {
       color: #0dccac;
-      background: #d6fff8;
       font-weight: bold;
+      border-bottom: none;
+      background: #d6fff8;
     }
     &.loser {
       color: #aaa;
+      border-bottom: none;
     }
     &.placeholder {
       color: #ccc;
