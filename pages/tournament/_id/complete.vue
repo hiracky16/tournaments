@@ -32,7 +32,7 @@ export default class Home extends Vue {
   tournament!: any
 
   get name () {
-    return this.tournament.name
+    return this.tournament?.name
   }
 }
 </script>

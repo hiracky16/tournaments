@@ -20,7 +20,7 @@ export default class TournamentEdit extends Vue {
   tournament!: any
 
   get rounds () {
-    return this.tournament.rounds
+    return this.tournament?.rounds
   }
 }
 </script>
