@@ -60,6 +60,7 @@ export default class TournamentGame extends Vue {
 
   @Watch('game.player1.name')
   onPlayer1Change () {
+    if (this.roundIdx === 0) { return }
     this.updateNextGamePlayer({
       gameIdx: this.gameIdx,
       roundIdx: this.roundIdx,
@@ -69,6 +70,7 @@ export default class TournamentGame extends Vue {
 
   @Watch('game.player2.name')
   onPlayer2Change () {
+    if (this.roundIdx === 0) { return }
     this.updateNextGamePlayer({
       gameIdx: this.gameIdx,
       roundIdx: this.roundIdx,
