@@ -1,9 +1,17 @@
 <template>
-  <TournamentIndexTemplate
-    :rounds="rounds"
-    :is-own="isOwn"
-    :user="user"
-  />
+  <div>
+    <input
+      type="file"
+      accept="image/png,image/jpeg,image/gif"
+      @change="upload"
+    >
+    <img :src="url">
+    <TournamentIndexTemplate
+      :rounds="rounds"
+      :is-own="isOwn"
+      :user="user"
+    />
+  </div>
 </template>
 
 <script lang="ts">
@@ -14,6 +22,10 @@ import User from '@/models/User'
 
 const RoundStore = namespace('rounds')
 const UserStore = namespace('users')
+
+interface HTMLInputEvent extends Event {
+    target: HTMLInputElement & EventTarget;
+}
 
 @Component({
   components: { TournamentIndexTemplate },
@@ -32,8 +44,22 @@ export default class TournamentDetail extends Vue {
   @UserStore.Getter('user')
   user!: User
 
+  @RoundStore.Action('uploadImage')
+  uploadImage!: (image: any) => void
+
+  @RoundStore.Getter('imageUrl')
+  url!: string
+
   get rounds () {
     return this.tournament?.rounds
+  }
+
+  async upload (e?: HTMLInputEvent) {
+    if (e?.target?.files?.length === 0) {
+      return
+    }
+    const image = e?.target?.files[0]
+    await this.uploadImage(image)
   }
 }
 </script>

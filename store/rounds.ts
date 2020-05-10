@@ -11,7 +11,8 @@ type UserTournamentType = {
 
 type State = {
   userTournament: UserTournamentType,
-  isOwn: boolean
+  isOwn: boolean,
+  imageUrl: string
 }
 
 export const state = () => ({
@@ -19,18 +20,21 @@ export const state = () => ({
     name: '',
     rounds: []
   } as UserTournamentType,
-  isOwn: false
+  isOwn: false,
+  imageUrl: ''
 })
 
 export type RootState = ReturnType<typeof state>
 
 export const getters: GetterTree<RootState, RootState> = {
   userTournament: state => state.userTournament,
-  isOwn: state => state.isOwn
+  isOwn: state => state.isOwn,
+  imageUrl: state => state.imageUrl
 }
 
 const SET_USER_TOURNAMENT = 'SET_USER_TOURNAMENT'
 const SET_IS_OWN = 'SET_IS_OWN'
+const SET_IMAGE_URL = 'SET_IMAGE_URL'
 const UPDATE_GAME_WINNER = 'UPDATE_GAME_WINNER'
 const UPDATE_NEXT_GAME_PLAYER = 'UPDATE_NEXT_GAME_PLAYER'
 
@@ -90,6 +94,9 @@ export const mutations: MutationTree<RootState> = {
   },
   [SET_IS_OWN] (state: State, flag: boolean) {
     state.isOwn = flag
+  },
+  [SET_IMAGE_URL] (state: State, url: string) {
+    state.imageUrl = url
   }
 }
 
@@ -105,6 +112,13 @@ export const actions: ActionTree<RootState, RootState> = {
   },
   updateNextGamePlayer ({ commit }, params: UpdateNextGamePlayerParams) {
     commit(UPDATE_NEXT_GAME_PLAYER, params)
+  },
+  async uploadImage ({ commit, rootGetters }, image: any) {
+    const user = rootGetters['users/user']
+    const res = await firebase.storage().ref(`users/${user.id}/`).put(image)
+    const url = await res.ref.getDownloadURL()
+    console.log(url)
+    commit(SET_IMAGE_URL, url)
   },
   async storeUserTournament ({ getters, rootGetters }, params: { tournamentId: string }) {
     const { tournamentId } = params
