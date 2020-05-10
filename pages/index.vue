@@ -22,7 +22,14 @@ import User from '../models/User'
 
 const UserStore = namespace('users')
 
-@Component({})
+@Component({
+  middleware: ({ store, redirect }) => {
+    const user = store.getters['users/user']
+    if (user) {
+      return redirect(`/user/${user.id}`)
+    }
+  }
+})
 export default class Index extends Vue {
   @UserStore.Action('login')
   login!: () => void
