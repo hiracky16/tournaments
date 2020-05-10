@@ -3,7 +3,7 @@
     <div class="card TournamentIndexTemplate__card">
       <div class="TournamentIndexTemplate__nav">
         <div v-if="user" class="TournamentIndexTemplate__nav-left">
-          <nuxt-link :to="`/user/${user.userId}`" class="link-nav">
+          <nuxt-link :to="`/user/${user.id}`" class="link-nav">
             ←ホームへ戻る
           </nuxt-link>
         </div>
