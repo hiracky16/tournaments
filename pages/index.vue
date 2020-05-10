@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div>
-        <img src="~/assets/logo_verticalpink.png" width="200px">
+      <img src="~/assets/logo_verticalpink.png" width="200px">
       <h2 class="subtitle">
         トーナメントで優勝を決める
       </h2>
@@ -18,6 +18,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, namespace } from 'nuxt-property-decorator'
+import User from '../models/User'
 
 const UserStore = namespace('users')
 
@@ -26,13 +27,15 @@ export default class Index extends Vue {
   @UserStore.Action('login')
   login!: () => void
 
+  @UserStore.Getter('user')
+  user!: User
+
   async twitterLogin () {
     try {
       await this.login()
+      this.$router.push(`/user/${this.user.id}`)
     } catch (error) {
       console.log(error)
-    } finally {
-      this.$router.push('home')
     }
   }
 }
