@@ -3,7 +3,7 @@
     <div class="card TournamentIndexTemplate__card">
       <div class="TournamentIndexTemplate__nav">
         <div class="TournamentIndexTemplate__nav-left">
-          <nuxt-link to="/home" class="link-nav">
+          <nuxt-link :to="`/user/${$route.params.userId}`" class="link-nav">
             ←ホームへ戻る
           </nuxt-link>
         </div>

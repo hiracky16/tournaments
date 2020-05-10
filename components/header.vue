@@ -15,13 +15,16 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, namespace } from 'nuxt-property-decorator'
-
+import User from '@/models/User'
 const UserStore = namespace('users')
 
 @Component({})
 export default class Header extends Vue {
   @UserStore.Getter('isLogin')
   isLogin!: boolean
+
+  @UserStore.Getter('user')
+  user!: User
 
   @UserStore.Action('logout')
   logout!: () => void
@@ -34,7 +37,7 @@ export default class Header extends Vue {
   }
 
   get link () {
-    return this.isLogin ? '/home' : '/'
+    return this.isLogin ? `/user/${this.user.id}` : '/'
   }
 
   async clickNav () {
@@ -43,7 +46,7 @@ export default class Header extends Vue {
       this.$router.push('/')
     } else {
       await this.login()
-      this.$router.push('/home')
+      this.$router.push(`/user/${this.user.id}`)
     }
   }
 }

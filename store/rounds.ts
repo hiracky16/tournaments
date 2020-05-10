@@ -87,12 +87,12 @@ export const mutations: MutationTree<RootState> = {
 }
 
 export const actions: ActionTree<RootState, RootState> = {
-  async fetchUserTournament ({ commit, rootGetters }, id: string) {
+  async fetchUserTournament ({ commit, rootGetters }, params: { id: string, userId: string }) {
     let user = rootGetters['users/user']
     if (!(user instanceof User)) {
       user = new User(user.id, user.name, user.image, user.twitterId)
     }
-    const tournament = await user.findUserTournamentById(id)
+    const tournament = await user.findUserTournamentById(params.id)
     commit(SET_USER_TOURNAMENT, tournament)
   },
   updateGameWinner ({ commit }, params: UpdateGameParams) {
