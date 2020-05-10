@@ -8,7 +8,7 @@
           </nuxt-link>
         </div>
         <div class="TournamentIndexTemplate__nav-left">
-          <nuxt-link :to="`/tournament/${$route.params.id}/edit`" class="link-button">
+          <nuxt-link :to="`/user/${$route.params.userId}/tournament/${$route.params.id}/edit`" class="link-button">
             このトーナメントを編集
           </nuxt-link>
         </div>

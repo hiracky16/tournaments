@@ -74,8 +74,9 @@ export default class TournamentsPage extends Vue {
   }
 
   async moveTournamentPage () {
-    const id = await this.fetchAndRegisterTournament({ id: this.selectedTournamentId, userId: this.user.id })
-    this.$router.push(`tournament/${id}`)
+    const userId = this.user.id
+    const id = await this.fetchAndRegisterTournament({ id: this.selectedTournamentId, userId })
+    this.$router.push(`user/${userId}/tournament/${id}`)
   }
 }
 </script>

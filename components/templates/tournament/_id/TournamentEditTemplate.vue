@@ -44,14 +44,14 @@ export default class TournamentEditTemplate extends Vue {
     const res = confirm('編集を保存しますか？')
     if (res) {
       await this.storeUserTournament({ tournamentId: this.$route.params.id })
-      this.$router.push(`/tournament/${this.$route.params.id}/complete`)
+      this.$router.push(`/user/${this.$route.params.userId}/tournament/${this.$route.params.id}/complete`)
     }
   }
 
   confirmCancel () {
     const res = confirm('編集内容を破棄して戻りますか？')
     if (res) {
-      this.$router.push(`/tournament/${this.$route.params.id}`)
+      this.$router.push(`/user/${this.$route.params.userId}/tournament/${this.$route.params.id}`)
     }
   }
 }
