@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import { ActionTree, GetterTree, MutationTree } from 'vuex'
 import { Round, UpdateGameParams, UpdateNextGamePlayerParams, PlayerKeys } from '~/models/tournament'
-import User from '~/models/User'
+import UserTournament from '~/models/UserTournament'
 import firebase from '@/plugins/firebase'
 
 type UserTournamentType = {
@@ -87,12 +87,9 @@ export const mutations: MutationTree<RootState> = {
 }
 
 export const actions: ActionTree<RootState, RootState> = {
-  async fetchUserTournament ({ commit, rootGetters }, params: { id: string, userId: string }) {
-    let user = rootGetters['users/user']
-    if (!(user instanceof User)) {
-      user = new User(user.id, user.name, user.image, user.twitterId)
-    }
-    const tournament = await user.findUserTournamentById(params.id)
+  async fetchUserTournament ({ commit, rootGetters }, id: string) {
+    const user = rootGetters['users/user']
+    const tournament = await user.findUserTournamentById(id)
     commit(SET_USER_TOURNAMENT, tournament)
   },
   updateGameWinner ({ commit }, params: UpdateGameParams) {
