@@ -6,27 +6,31 @@ import firebase from '@/plugins/firebase'
 
 type UserTournamentType = {
   name: string,
-  rounds: Round[],
+  rounds: Round[]
 }
 
 type State = {
   userTournament: UserTournamentType,
+  isOwn: boolean
 }
 
 export const state = () => ({
   userTournament: {
     name: '',
     rounds: []
-  } as UserTournamentType
+  } as UserTournamentType,
+  isOwn: false
 })
 
 export type RootState = ReturnType<typeof state>
 
 export const getters: GetterTree<RootState, RootState> = {
-  userTournament: state => state.userTournament
+  userTournament: state => state.userTournament,
+  isOwn: state => state.isOwn
 }
 
 const SET_USER_TOURNAMENT = 'SET_USER_TOURNAMENT'
+const SET_IS_OWN = 'SET_IS_OWN'
 const UPDATE_GAME_WINNER = 'UPDATE_GAME_WINNER'
 const UPDATE_NEXT_GAME_PLAYER = 'UPDATE_NEXT_GAME_PLAYER'
 
@@ -83,14 +87,18 @@ export const mutations: MutationTree<RootState> = {
       Vue.set(nextGamePlayer, 'id', player.id)
       Vue.set(nextGamePlayer, 'name', player.name)
     }
+  },
+  [SET_IS_OWN] (state: State, flag: boolean) {
+    state.isOwn = flag
   }
 }
 
 export const actions: ActionTree<RootState, RootState> = {
-  async fetchUserTournament ({ commit, rootGetters }, id: string) {
+  async fetchUserTournament ({ commit, rootGetters }, params: { id: string, userId: string }) {
     const user = rootGetters['users/user']
-    const tournament = await user.findUserTournamentById(id)
+    const tournament = await UserTournament.findByUserIdAndId(params.userId, params.id)
     commit(SET_USER_TOURNAMENT, tournament)
+    commit(SET_IS_OWN, user.id === params.userId)
   },
   updateGameWinner ({ commit }, params: UpdateGameParams) {
     commit(UPDATE_GAME_WINNER, params)

@@ -3,11 +3,11 @@
     <div class="card TournamentIndexTemplate__card">
       <div class="TournamentIndexTemplate__nav">
         <div class="TournamentIndexTemplate__nav-left">
-          <nuxt-link :to="`/user/${$route.params.userId}`" class="link-nav">
+          <nuxt-link :to="`/user/${user.userId}`" class="link-nav">
             ←ホームへ戻る
           </nuxt-link>
         </div>
-        <div class="TournamentIndexTemplate__nav-left">
+        <div v-if="isOwn" class="TournamentIndexTemplate__nav-left">
           <nuxt-link :to="`/user/${$route.params.userId}/tournament/${$route.params.id}/edit`" class="link-button">
             このトーナメントを編集
           </nuxt-link>
@@ -22,6 +22,7 @@ import Vue from 'vue'
 import { Component, Prop } from 'nuxt-property-decorator'
 import TournamentLayout from '~/components/TournamentLayout.vue'
 import { Game } from '~/models/tournament'
+import User from '@/models/User'
 
 @Component({
   components: { TournamentLayout }
@@ -34,6 +35,12 @@ export default class TournamentIndexTemplate extends Vue {
   rounds!: {
     games: Game[]
   }[];
+
+  @Prop({ type: Boolean, required: true })
+  isOwn!: boolean
+
+  @Prop({ type: User, required: true })
+  user!: User
 }
 </script>
 

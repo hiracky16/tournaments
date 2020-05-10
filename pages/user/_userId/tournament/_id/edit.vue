@@ -11,8 +11,14 @@ const RoundStore = namespace('rounds')
 
 @Component({
   components: { TournamentEditTemplate },
+  middleware: ({ store, redirect, params }) => {
+    const myUserId = store.getters['users/user']?.id
+    if (myUserId !== params.userId) {
+      return redirect(`/user/${myUserId}`)
+    }
+  },
   async fetch ({ store, params }) {
-    await store.dispatch('rounds/fetchUserTournament', params.id)
+    await store.dispatch('rounds/fetchUserTournament', params)
   }
 })
 export default class TournamentEdit extends Vue {
