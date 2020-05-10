@@ -46,6 +46,9 @@ export default class Home extends Vue {
   @RoundStore.Getter('userTournament')
   tournament!: any
 
+  @RoundStore.Action('uploadImage')
+  uploadImage!: (image: any) => void
+
   get name () {
     return this.tournament?.name
   }
@@ -56,7 +59,7 @@ export default class Home extends Vue {
     const img = new Image()
     ctx!.drawImage(img, 0, 0)
     const base64 = canvas.toDataURL('image/jpeg')
-    console.log(base64)
+    await this.uploadImage({ tournamentId: this.$route.params.id, base64 })
 
     window.open(`http://twitter.com/share?url=https://${'envHostName'}/user/${this.$route.params.userId}/tournament/${this.$route.params.id}&text=○○トーナメントの結果%0a□□が一番でした！%0a&hashtags=uniqa,トーナメントで優勝を決めよう！`, '_blank')
   }
