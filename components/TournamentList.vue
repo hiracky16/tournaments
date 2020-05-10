@@ -27,7 +27,7 @@ import { Component, Prop, Emit } from 'nuxt-property-decorator'
 
 @Component({})
 export default class Tournament extends Vue {
-  @Prop({ type: Object, required: true })
+  @Prop({ type: Array, required: true })
   tournaments!: { [key: string]: string }[]
 
   @Emit('click')
