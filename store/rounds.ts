@@ -6,18 +6,20 @@ import firebase from '@/plugins/firebase'
 
 type UserTournamentType = {
   name: string,
-  rounds: Round[]
+  rounds: Round[],
+  imageUrl: string
 }
 
 type State = {
   userTournament: UserTournamentType,
-  isOwn: boolean
+  isOwn: boolean,
 }
 
 export const state = () => ({
   userTournament: {
     name: '',
-    rounds: []
+    rounds: [],
+    imageUrl: ''
   } as UserTournamentType,
   isOwn: false
 })
@@ -31,6 +33,7 @@ export const getters: GetterTree<RootState, RootState> = {
 
 const SET_USER_TOURNAMENT = 'SET_USER_TOURNAMENT'
 const SET_IS_OWN = 'SET_IS_OWN'
+const SET_IMAGE_URL = 'SET_IMAGE_URL'
 const UPDATE_GAME_WINNER = 'UPDATE_GAME_WINNER'
 const UPDATE_NEXT_GAME_PLAYER = 'UPDATE_NEXT_GAME_PLAYER'
 
@@ -90,6 +93,9 @@ export const mutations: MutationTree<RootState> = {
   },
   [SET_IS_OWN] (state: State, flag: boolean) {
     state.isOwn = flag
+  },
+  [SET_IMAGE_URL] (state: State, url: string) {
+    Vue.set(state.userTournament, 'imageUrl', url)
   }
 }
 
@@ -116,5 +122,19 @@ export const actions: ActionTree<RootState, RootState> = {
       .doc(tournamentId)
       .set(getters.userTournament)
     return tournamentId
+  },
+  async uploadImage ({ commit, rootGetters, getters }, params: { tournamentId: string, base64: string }) {
+    const user = rootGetters['users/user']
+    const { tournamentId, base64 } = params
+
+    const res = await firebase.storage().ref(`users/${user.id}_${tournamentId}.jpg`).putString(base64.substring(23), 'base64')
+    const url = await res.ref.getDownloadURL()
+    commit(SET_IMAGE_URL, url)
+
+    await firebase
+      .firestore()
+      .collection(`users/${user.id}/tournaments/`)
+      .doc(tournamentId)
+      .set(getters.userTournament)
   }
 }
