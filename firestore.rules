@@ -2,9 +2,11 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 		match /users/{userId} {
-			allow write, read: if request.auth != null;
+			allow write: if request.auth != null;
+			allow read;
 			match /tournaments/{tournamentId} {
-				allow write, read: if request.auth != null;
+				allow write: if request.auth != null;
+				allow read;
 			}
 			match /tweets/{tweetId} {
 				allow write, read: if request.auth != null;

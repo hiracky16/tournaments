@@ -98,7 +98,7 @@ export const actions: ActionTree<RootState, RootState> = {
     const user = rootGetters['users/user']
     const tournament = await UserTournament.findByUserIdAndId(params.userId, params.id)
     commit(SET_USER_TOURNAMENT, tournament)
-    commit(SET_IS_OWN, user.id === params.userId)
+    commit(SET_IS_OWN, user?.id === params.userId)
   },
   updateGameWinner ({ commit }, params: UpdateGameParams) {
     commit(UPDATE_GAME_WINNER, params)
