@@ -79,9 +79,11 @@ export default class User {
 export class UserTournament {
   id: string
   name: string
+  createdAt: Date | null
 
-  constructor (id: string, name: string) {
+  constructor (id: string, name: string, createdAt: Date | null = null) {
     this.id = id
     this.name = name
+    this.createdAt = createdAt
   }
 }
