@@ -56,7 +56,7 @@ export default class Header extends Vue {
   }
 
   toContact () {
-    this.$router.push('contacts')
+    this.$router.push('/contacts')
   }
 }
 </script>
