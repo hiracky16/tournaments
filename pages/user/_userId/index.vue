@@ -53,8 +53,8 @@ const UserStore = namespace('users')
     TournamentList
   },
   middleware: 'auth',
-  fetch ({ store }) {
-    store.dispatch('users/fetchUserTournaments')
+  async fetch ({ store }) {
+    await store.dispatch('users/fetchUserTournaments')
   }
 })
 export default class Home extends Vue {
