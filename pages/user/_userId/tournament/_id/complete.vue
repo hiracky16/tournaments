@@ -1,26 +1,24 @@
 <template>
-  <div class="container">
-    <template>
-      <h1 class="finmessage">
-        トーナメントの編集が完了しました。
-      </h1>
-      <div class="tournaments">
-        <h2>
-          {{ name }}
-        </h2>
+  <div>
+    <h1 class="finmessage">
+      トーナメントの編集が完了しました。
+    </h1>
+    <div class="tournaments">
+      <h2>
+        {{ name }}
+      </h2>
+    </div>
+    <button @click="tweet">
+      このトーナメントの結果をシェアする
+    </button>
+    <div class="CompleteCapture__container">
+      <div id="capture" class="CompleteCapture__frame">
+        <TournamentLayout :rounds="tournament.rounds" :is-editable="false" class="CompleteCapture__tournament" />
+        <nuxt-link :to="`/user/${$route.params.userId}`" class="button is-primary is-medium">
+          ホームに戻る
+        </nuxt-link>
       </div>
-      <button @click="tweet">
-        このトーナメントの結果をシェアする
-      </button>
-      <div class="CompleteCapture__container">
-        <div id="capture" class="CompleteCapture__frame">
-          <TournamentLayout :rounds="tournament.rounds" :is-editable="false" class="CompleteCapture__tournament" />
-          <nuxt-link :to="`/user/${$route.params.userId}`" class="button is-primary is-medium">
-            ホームに戻る
-          </nuxt-link>
-        </div>
-      </div>
-    </template>
+    </div>
   </div>
 </template>
 
