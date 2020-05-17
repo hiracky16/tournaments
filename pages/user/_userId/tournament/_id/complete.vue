@@ -8,7 +8,7 @@
         {{ name }}
       </h2>
     </div>
-    <button @click="capturingTournament">
+    <button @click="tweet">
       このトーナメントの結果をシェアする
     </button>
     <div class="CompleteCapture__container">
@@ -27,8 +27,13 @@ import Vue from 'vue'
 import { Component, namespace } from 'nuxt-property-decorator'
 import html2canvas from 'html2canvas'
 import TournamentLayout from '~/components/TournamentLayout.vue'
+import User from '@/models/User'
+
+// FIXME: 一旦ハードコーディングしているが環境変数に逃がす
+const DOMAIN = 'https://akbtest-66d57.web.app'
 
 const RoundStore = namespace('rounds')
+const UserStore = namespace('users')
 
 @Component({
   components: { TournamentLayout },
@@ -49,21 +54,26 @@ export default class Home extends Vue {
   @RoundStore.Action('uploadImage')
   uploadImage!: (image: any) => void
 
+  @UserStore.Getter('user')
+  user!: User
+
   get name () {
     return this.tournament?.name
   }
 
-  async capturingTournament () {
+  async tweet () {
     const canvas: HTMLCanvasElement = await html2canvas(document.getElementById('capture')!)
     const ctx = canvas.getContext('2d')
     const img = new Image()
     ctx!.drawImage(img, 0, 0)
     const base64 = canvas.toDataURL('image/jpeg')
     await this.uploadImage({ tournamentId: this.$route.params.id, base64 })
+    const tweetText = `#uniqa #${this.tournament.name}\n ${this.shareUrl()}`
+    await this.user.tweet(tweetText)
+  }
 
-    const shareUrl = `http://twitter.com/share?url=https://${'envHostName'}/user/${this.$route.params.userId}/tournament/${this.$route.params.id}&text=${this.name}の結果%0a&hashtags=uniqa,トーナメントで優勝を決めよう！`
-
-    window.open(shareUrl, '_blank')
+  shareUrl () {
+    return `${DOMAIN}/ogp/user/${this.$route.params.userId}/tournament/${this.$route.params.id}`
   }
 }
 </script>
