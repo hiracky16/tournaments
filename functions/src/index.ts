@@ -64,14 +64,19 @@ type Game = {
   player2: Player
 }
 
+type Games = {
+  games: Game[]
+}
+
 const createDescription = (
   userName: string,
   tournamentName: string,
-  rounds: Game[]) => {
+  rounds: Games[]) => {
   const desc = `${userName}さんは${tournamentName}で遊びました！`
-  const lastGame = rounds.pop()
-  if (lastGame?.player1?.winner) {
-    const winPlayer = lastGame?.player1?.winner ? lastGame?.player1 : lastGame?.player2
+  const lastGame = rounds.pop()?.games[0]
+  const isWinPlayer1 = lastGame?.player1?.winner
+  if (lastGame && isWinPlayer1) {
+    const winPlayer = isWinPlayer1 ? lastGame?.player1 : lastGame?.player2
     return `${desc}\n勝者は「${winPlayer.name}」です。`
   } else {
     return desc
