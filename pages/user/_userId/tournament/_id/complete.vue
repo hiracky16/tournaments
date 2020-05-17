@@ -14,11 +14,11 @@
     <div class="CompleteCapture__container">
       <div id="capture" class="CompleteCapture__frame">
         <TournamentLayout :rounds="tournament.rounds" :is-editable="false" class="CompleteCapture__tournament" />
-        <nuxt-link :to="`/user/${$route.params.userId}`" class="button is-primary is-medium">
-          ホームに戻る
-        </nuxt-link>
       </div>
     </div>
+    <nuxt-link :to="`/user/${$route.params.userId}`" class="button is-primary is-medium">
+      ホームに戻る
+    </nuxt-link>
   </div>
 </template>
 
