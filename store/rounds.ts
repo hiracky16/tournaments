@@ -127,7 +127,7 @@ export const actions: ActionTree<RootState, RootState> = {
     const user = rootGetters['users/user']
     const { tournamentId, base64 } = params
 
-    const res = await firebase.storage().ref(`users/${user.id}_${tournamentId}.jpg`).putString(base64.substring(23), 'base64')
+    const res = await firebase.storage().ref(`users/${user.id}/tournaments/${tournamentId}.jpg`).putString(base64.substring(23), 'base64')
     const url = await res.ref.getDownloadURL()
     commit(SET_IMAGE_URL, url)
 

@@ -39,8 +39,7 @@ export const ogp = functions.region('us-central1').https.onRequest(async (req, r
   const doc = await db.collection(`users/${userId}/tournaments`).doc(tournamentId).get()
   const tournamentName = doc.data()?.name
   const description = createDescription(userDoc.data().name, tournamentName, doc.data()?.rounds)
-  // TODO: firestorage に保存したものにする
-  const imageUrl = 'https://img.benesse-cms.jp/pet-dog/item/image/normal/resized/resized_a18dcd9f-548b-4f68-ab7f-14887d74e7f5.jpg'
+  const imageUrl = doc.data()?.imageUrl
 
   const isBot = userAgent !== null && (userAgent?.includes('googlebot') || userAgent?.includes('twitterbot'))
 

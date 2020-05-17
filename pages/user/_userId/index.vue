@@ -44,7 +44,6 @@ import Vue from 'vue'
 import { Component, namespace } from 'nuxt-property-decorator'
 import TournamentList from '~/components/TournamentList.vue'
 import User, { UserTournament } from '~/models/User.ts'
-import Tournament from '~/components/TournamentList.vue'
 
 const UserStore = namespace('users')
 
