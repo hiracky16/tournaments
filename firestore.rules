@@ -18,5 +18,8 @@ service cloud.firestore {
 				allow read;
 			}
 		}
+		match /contacts/{contactId} {
+			allow write, read: if request.auth != null;
+		}
   }
 }
