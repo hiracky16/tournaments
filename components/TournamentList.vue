@@ -3,7 +3,7 @@
     <section>
       <nav class="panel">
         <p class="panel-heading">
-          トーナメント一覧  (選手数：無作為32組)
+          トーナメント一覧
         </p>
         <div
           v-for="tournament in tournaments"

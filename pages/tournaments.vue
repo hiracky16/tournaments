@@ -14,7 +14,7 @@
           <button class="delete" aria-label="close" @click="closeModal" />
         </header>
         <section class="modal-card-body">
-          トーナメントを作成しますか？　(選手数：無作為３２組)
+          トーナメントを作成しますか？　(選択可能数３２組)
         </section>
         <footer class="modal-card-foot">
           <button class="button is-success" @click="moveTournamentPage">
