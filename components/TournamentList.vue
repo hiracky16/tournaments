@@ -14,6 +14,9 @@
             @click="clickAction(tournament)"
           >
             {{ tournament.name }}
+            <div class="createdAt">
+              {{ tournamentCreatedAt(tournament) }}
+            </div>
           </div>
         </div>
       </nav>
@@ -24,15 +27,31 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop, Emit } from 'nuxt-property-decorator'
+import { Timestamp } from '@google-cloud/firestore'
+
+type TournamentType = {
+  id: string | number
+  name: string
+  createdAt?: Timestamp | null
+}
 
 @Component({})
 export default class Tournament extends Vue {
   @Prop({ type: Array, required: true })
-  tournaments!: { [key: string]: string }[]
+  tournaments!: TournamentType[]
 
   @Emit('click')
-  clickAction (tournament: { [key: string]: string }) {
+  clickAction (tournament: TournamentType) {
     return tournament
+  }
+
+  tournamentCreatedAt (tournament: TournamentType) {
+    if (!tournament.createdAt) {
+      return ''
+    } else {
+      const date = tournament.createdAt.toDate()
+      return `${date.getFullYear()}年${date.getMonth()}月${date.getDate()}日作成`
+    }
   }
 }
 </script>
@@ -48,5 +67,10 @@ export default class Tournament extends Vue {
 }
 .panel-block {
   background-color: #fff;
+  display: block;
+  .createdAt {
+    margin-right: 8px;
+    float: right;
+  }
 }
 </style>

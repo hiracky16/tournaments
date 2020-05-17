@@ -70,7 +70,7 @@ export default class User {
       .collection(`users/${this.id}/tournaments`)
       .get()
     const tournaments = res.docs.map((t) => {
-      return new UserTournament(t.id, t.data()?.name)
+      return new UserTournament(t.id, t.data()?.name, t.data()?.createdAt)
     })
     return tournaments
   }
@@ -79,9 +79,11 @@ export default class User {
 export class UserTournament {
   id: string
   name: string
+  createdAt: Date | null
 
-  constructor (id: string, name: string) {
+  constructor (id: string, name: string, createdAt: Date | null = null) {
     this.id = id
     this.name = name
+    this.createdAt = createdAt
   }
 }
