@@ -5,8 +5,13 @@
         <img src="~/assets/logo_sidepink.png" width="150px">
       </nuxt-link>
       <nav>
-        <ul @click="clickNav">
-          <li>{{ navText }}</li>
+        <ul>
+          <li v-if="isLogin" @click="toContact">
+            お問い合わせ
+          </li>
+          <li @click="clickNav">
+            {{ navText }}
+          </li>
         </ul>
       </nav>
     </header>
@@ -48,6 +53,10 @@ export default class Header extends Vue {
       await this.login()
       this.$router.push(`/user/${this.user.id}`)
     }
+  }
+
+  toContact () {
+    this.$router.push('contacts')
   }
 }
 </script>
