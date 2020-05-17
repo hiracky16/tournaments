@@ -62,14 +62,21 @@ export default class Home extends Vue {
   }
 
   async tweet () {
-    const canvas: HTMLCanvasElement = await html2canvas(document.getElementById('capture')!)
-    const ctx = canvas.getContext('2d')
-    const img = new Image()
-    ctx!.drawImage(img, 0, 0)
-    const base64 = canvas.toDataURL('image/jpeg')
-    await this.uploadImage({ tournamentId: this.$route.params.id, base64 })
-    const tweetText = `#uniqa #${this.tournament.name}\n ${this.shareUrl()}`
-    await this.user.tweet(tweetText)
+    this.$nuxt.$loading.start()
+    try {
+      const canvas: HTMLCanvasElement = await html2canvas(document.getElementById('capture')!)
+      const ctx = canvas.getContext('2d')
+      const img = new Image()
+      ctx!.drawImage(img, 0, 0)
+      const base64 = canvas.toDataURL('image/jpeg')
+      await this.uploadImage({ tournamentId: this.$route.params.id, base64 })
+      const tweetText = `#uniqa #${this.tournament.name}\n ${this.shareUrl()}`
+      await this.user.tweet(tweetText)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      this.$nuxt.$loading.finish()
+    }
   }
 
   shareUrl () {
