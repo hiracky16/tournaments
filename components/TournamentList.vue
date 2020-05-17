@@ -50,7 +50,7 @@ export default class Tournament extends Vue {
       return ''
     } else {
       const date = tournament.createdAt.toDate()
-      return `${date.getFullYear()}年${date.getMonth()}月${date.getDate()}日作成`
+      return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日作成`
     }
   }
 }
