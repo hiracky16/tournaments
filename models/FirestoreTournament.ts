@@ -72,7 +72,7 @@ export default class FirestoreTournament {
       .firestore()
       .collection(`users/${userId}/tournaments`)
       .doc(id)
-      .set({ name: this.name, rounds, createdAt})
+      .set({ name: this.name, rounds, createdAt })
     return id
   }
 }

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import { ActionTree, GetterTree, MutationTree } from 'vuex'
 import { Round, UpdateGameParams, UpdateNextGamePlayerParams, PlayerKeys } from '~/models/tournament'
 import firebase from '@/plugins/firebase'
+import UserTournament from '@/models/UserTournament'
 
 type UserTournamentType = {
   name: string,

@@ -70,7 +70,7 @@ export default class User {
       .collection(`users/${this.id}/tournaments`)
       .get()
     const tournaments = res.docs.map((t) => {
-      return new UserTournament(t.id, t.data()?.name)
+      return new UserTournament(t.id, t.data()?.name, t.data()?.createdAt)
     })
     return tournaments
   }
