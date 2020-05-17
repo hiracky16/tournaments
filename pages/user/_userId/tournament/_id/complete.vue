@@ -28,7 +28,6 @@ import { Component, namespace } from 'nuxt-property-decorator'
 import html2canvas from 'html2canvas'
 import TournamentLayout from '~/components/TournamentLayout.vue'
 import User from '@/models/User'
-
 // FIXME: 一旦ハードコーディングしているが環境変数に逃がす
 const DOMAIN = 'https://akbtest-66d57.web.app'
 
