@@ -3,16 +3,11 @@
     <h1 class="finmessage">
       トーナメントの編集が完了しました。
     </h1>
-    <Button label="結果をツイートする" :on-click="tweet" class="clickShareButton" />
+    <Button label="結果をツイートする" :on-click="clickShareButton" class="clickShareButton" />
     <div class="tournaments">
       <h2>
         {{ name }}
       </h2>
-    </div>
-    <div class="CompleteCapture__container">
-      <div id="capture" class="CompleteCapture__frame">
-        <TournamentLayout :rounds="tournament.rounds" :is-editable="false" class="CompleteCapture__tournament" />
-      </div>
     </div>
     <nuxt-link :to="`/user/${$route.params.userId}`" class="toHome">
       ホームに戻る
@@ -47,6 +42,16 @@
           <div class="field">
             <div class="control">
               <input class="input" type="text" :value="account3" @input="changeAccout3">
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              トーナメント結果
+            </div>
+          </div>
+          <div class="CompleteCapture__container">
+            <div id="capture" class="CompleteCapture__frame">
+              <TournamentLayout :rounds="tournament.rounds" :is-editable="false" class="CompleteCapture__tournament" />
             </div>
           </div>
         </section>
@@ -215,7 +220,7 @@ export default class Home extends Vue {
 
 .CompleteCapture {
   &__container {
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: flex-start;
     margin-bottom: 40px;
