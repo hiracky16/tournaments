@@ -33,12 +33,20 @@
     <div class="field">
       <div class="control">
         <button
+          v-if="!isSuccess"
           class="button is-primary is-medium"
           :disabled="!canSubmit"
           @click="submit"
         >
           送信
         </button>
+        <nuxt-link
+          v-if="isSuccess"
+          :to="`/user/${$route.params.userId}`"
+          class="button is-primary is-medium"
+        >
+          ホームに戻る
+        </nuxt-link>
       </div>
     </div>
   </div>
