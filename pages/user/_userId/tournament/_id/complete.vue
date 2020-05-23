@@ -74,7 +74,7 @@ import TournamentLayout from '~/components/TournamentLayout.vue'
 import Button from '~/components/Button.vue'
 import User from '@/models/User'
 // FIXME: 一旦ハードコーディングしているが環境変数に逃がす
-const DOMAIN = 'https://akbtest-66d57.web.app'
+const DOMAIN = 'https://www.uniqa.site'
 
 const ACCOUNT_PREFIX = '@'
 

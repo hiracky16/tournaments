@@ -5,7 +5,7 @@ const admin = require('firebase-admin')
 admin.initializeApp()
 const db = admin.firestore()
 
-const DOMAIN = 'https://akbtest-66d57.web.app'
+const DOMAIN = 'https://www.uniqa.site'
 
 const client = new Twitter({
   consumer_key: functions.config().credential.twitter.api_key,
