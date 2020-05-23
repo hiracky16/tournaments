@@ -69,8 +69,8 @@ export default class Home extends Vue {
       ctx!.drawImage(img, 0, 0)
       const base64 = canvas.toDataURL('image/jpeg')
       await this.uploadImage({ tournamentId: this.$route.params.id, base64 })
-      const tweetText = `#uniqa #${this.tournament.name}\n ${this.shareUrl()}`
-      await this.user.tweet(tweetText)
+      const tweetUrl = `http://twitter.com/share?url=${this.shareUrl()}&hashtags=uniqa,${this.tournament.name}&text=${this.name}の結果%0a`
+      window.open(tweetUrl, '_blank')
     } catch (error) {
       console.log(error)
     } finally {
