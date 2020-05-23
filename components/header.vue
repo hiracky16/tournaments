@@ -84,8 +84,10 @@ nav {
     li {
       list-style-type: none;
       margin-left: 15px;
-      a {
-        color: #333;
+      cursor: pointer;
+      transition: all .2s ease;
+      &:hover {
+        color: #f5576c;
       }
     }
   }

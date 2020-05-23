@@ -22,7 +22,7 @@
     </div>
     <div class="field">
       <div class="control">
-        <input type="text" class="input" placeholder="タイトル" @input="inputTitle"></input>
+        <input type="text" class="input" placeholder="タイトル" @input="inputTitle">
       </div>
     </div>
     <div class="field">
@@ -32,18 +32,10 @@
     </div>
     <div class="field">
       <div class="control">
-        <button
-          v-if="!isSuccess"
-          class="button is-primary is-medium"
-          :disabled="!canSubmit"
-          @click="submit"
-        >
-          送信
-        </button>
+        <Button v-if="!isSuccess" label="送信" :on-click="submit" :disabled="!canSubmit" />
         <nuxt-link
           v-if="isSuccess"
           :to="`/user/${$route.params.userId}`"
-          class="button is-primary is-medium"
         >
           ホームに戻る
         </nuxt-link>
@@ -56,12 +48,13 @@
 import Vue from 'vue'
 import { Component, namespace } from 'nuxt-property-decorator'
 import Message from '@/components/Message.vue'
+import Button from '@/components/Button.vue'
 import User from '~/models/User'
 import firebase from '@/plugins/firebase'
 const UserStore = namespace('users')
 
 @Component({
-  components: { Message }
+  components: { Message, Button }
 })
 export default class ContactPage extends Vue {
   private radioButtonValue = ''

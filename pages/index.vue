@@ -5,12 +5,7 @@
       <h2 class="subtitle">
         トーナメントで優勝を決める
       </h2>
-      <button
-        class="button is-primary"
-        @click="twitterLogin"
-      >
-        ログイン
-      </button>
+      <Button label="ログイン" :on-click="twitterLogin" />
     </div>
   </div>
 </template>
@@ -19,6 +14,7 @@
 import Vue from 'vue'
 import { Component, namespace } from 'nuxt-property-decorator'
 import User from '../models/User'
+import Button from '~/components/Button.vue'
 
 const UserStore = namespace('users')
 
@@ -28,6 +24,9 @@ const UserStore = namespace('users')
     if (user) {
       return redirect(`/user/${user.id}`)
     }
+  },
+  components: {
+    Button
   }
 })
 export default class Index extends Vue {

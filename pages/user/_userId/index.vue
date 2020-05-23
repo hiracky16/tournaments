@@ -27,9 +27,7 @@
     </section>
     <section class="section">
       <div id="buttonclass" class="container">
-        <button class="button is-primary is-medium" @click="toTournamentList">
-          新しいトーナメントを作成
-        </button>
+        <Button label="新しいトーナメントを作成" :on-click="toTournamentList" />
       </div>
     </section>
     <TournamentList
@@ -43,13 +41,15 @@
 import Vue from 'vue'
 import { Component, namespace } from 'nuxt-property-decorator'
 import TournamentList from '~/components/TournamentList.vue'
+import Button from '~/components/Button.vue'
 import User, { UserTournament } from '~/models/User.ts'
 
 const UserStore = namespace('users')
 
 @Component({
   components: {
-    TournamentList
+    TournamentList,
+    Button,
   },
   middleware: 'auth',
   async fetch ({ store }) {

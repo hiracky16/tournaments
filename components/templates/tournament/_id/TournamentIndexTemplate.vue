@@ -8,9 +8,7 @@
           </nuxt-link>
         </div>
         <div v-if="isOwn" class="TournamentIndexTemplate__nav-left">
-          <nuxt-link :to="`/user/${$route.params.userId}/tournament/${$route.params.id}/edit`" class="link-button">
-            このトーナメントを編集
-          </nuxt-link>
+          <Button label="このトーナメントを編集" :on-click="routeEditPage" />
         </div>
       </div>
       <TournamentLayout :rounds="rounds" :is-editable="false" />
@@ -21,11 +19,12 @@
 import Vue from 'vue'
 import { Component, Prop } from 'nuxt-property-decorator'
 import TournamentLayout from '~/components/TournamentLayout.vue'
+import Button from '~/components/Button.vue'
 import { Game } from '~/models/tournament'
 import User from '@/models/User'
 
 @Component({
-  components: { TournamentLayout }
+  components: { TournamentLayout, Button }
 })
 export default class TournamentIndexTemplate extends Vue {
   @Prop({
@@ -41,6 +40,10 @@ export default class TournamentIndexTemplate extends Vue {
 
   @Prop({ type: User, required: true })
   user!: User
+
+  routeEditPage () {
+    this.$router.push(`/user/${this.$route.params.userId}/tournament/${this.$route.params.id}/edit`)
+  }
 }
 </script>
 
@@ -62,16 +65,5 @@ export default class TournamentIndexTemplate extends Vue {
 }
 .link-nav {
   color: #666;
-}
-.link-button {
-  display: inline-block;
-  padding: 10px 16px;
-  background: #f5576c;
-  background-image: linear-gradient(120deg, #fb93c7 0%, #f5576c 100%);
-  border: none;
-  color: #fff;
-  font-size: 1em;
-  font-weight: bold;
-  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
 }
 </style>
