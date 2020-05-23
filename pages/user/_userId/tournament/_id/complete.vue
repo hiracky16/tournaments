@@ -213,6 +213,10 @@ export default class Home extends Vue {
   margin: 20px 0 40px;
 }
 
+.tournaments {
+  margin-bottom: 16px;
+}
+
 .CompleteCapture {
   &__container {
     display: flex;
