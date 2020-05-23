@@ -49,7 +49,7 @@ const UserStore = namespace('users')
 @Component({
   components: {
     TournamentList,
-    Button,
+    Button
   },
   middleware: 'auth',
   async fetch ({ store }) {

@@ -9,9 +9,11 @@
         {{ name }}
       </h2>
     </div>
-    <nuxt-link :to="`/user/${$route.params.userId}`" class="toHome">
-      ホームに戻る
-    </nuxt-link>
+    <div class="CompleteCapture__container">
+      <div id="capture" class="CompleteCapture__frame">
+        <TournamentLayout :rounds="tournament.rounds" :is-editable="false" class="CompleteCapture__tournament" />
+      </div>
+    </div>
     <div :class="{ 'is-active': isModal }" class="modal">
       <div class="modal-background" />
       <div class="modal-card">
@@ -49,20 +51,16 @@
               トーナメント結果
             </div>
           </div>
-          <div class="CompleteCapture__container">
-            <div id="capture" class="CompleteCapture__frame">
-              <TournamentLayout :rounds="tournament.rounds" :is-editable="false" class="CompleteCapture__tournament" />
-            </div>
-          </div>
+          <div id="tournamentImage" />
+          <footer class="modal-card-foot">
+            <button class="button is-success" @click="tweet">
+              ツイート
+            </button>
+            <button class="button" @click="closeModal">
+              キャンセル
+            </button>
+          </footer>
         </section>
-        <footer class="modal-card-foot">
-          <button class="button is-success" @click="tweet">
-            ツイート
-          </button>
-          <button class="button" @click="closeModal">
-            キャンセル
-          </button>
-        </footer>
       </div>
     </div>
   </div>
@@ -109,13 +107,21 @@ export default class Home extends Vue {
   private account1 = ACCOUNT_PREFIX
   private account2 = ACCOUNT_PREFIX
   private account3 = ACCOUNT_PREFIX
+  private tournamentBase64 = ''
 
   get name () {
     return this.tournament?.name
   }
 
-  clickShareButton () {
+  async clickShareButton () {
     this.isModal = true
+    // FIXME: クソ実装
+    const canvas = await html2canvas(document.getElementById('capture')!)
+    const ctx = canvas.getContext('2d')
+    const img = new Image()
+    ctx!.drawImage(img, 0, 0)
+    const tmp = document.getElementById('tournamentImage')?.appendChild(canvas)
+    this.tournamentBase64 = canvas.toDataURL('image/jpeg')
   }
 
   init () {
@@ -127,12 +133,7 @@ export default class Home extends Vue {
   async tweet () {
     this.$nuxt.$loading.start()
     try {
-      const canvas: HTMLCanvasElement = await html2canvas(document.getElementById('capture')!)
-      const ctx = canvas.getContext('2d')
-      const img = new Image()
-      ctx!.drawImage(img, 0, 0)
-      const base64 = canvas.toDataURL('image/jpeg')
-      await this.uploadImage({ tournamentId: this.$route.params.id, base64 })
+      await this.uploadImage({ tournamentId: this.$route.params.id, base64: this.tournamentBase64 })
       const shareText = `${this.name}の結果%0aトーナメントで遊びませんか？%0a${this.shareAccounts()}%0a`
       const tweetUrl = `http://twitter.com/share?url=${this.shareUrl()}&hashtags=${this.shareHashTags()}&text=${shareText}`
       window.open(tweetUrl, '_blank')
