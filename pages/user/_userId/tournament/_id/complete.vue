@@ -52,15 +52,15 @@
             </div>
           </div>
           <div id="tournamentImage" />
-          <footer class="modal-card-foot">
-            <button class="button is-info" @click="tweet">
-              ツイート
-            </button>
-            <button class="button" @click="closeModal">
-              キャンセル
-            </button>
-          </footer>
         </section>
+        <footer class="modal-card-foot">
+          <button class="button is-info" @click="tweet">
+            ツイート
+          </button>
+          <button class="button" @click="closeModal">
+            キャンセル
+          </button>
+        </footer>
       </div>
     </div>
   </div>
