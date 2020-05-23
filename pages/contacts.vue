@@ -22,7 +22,7 @@
     </div>
     <div class="field">
       <div class="control">
-        <input type="text" class="input" placeholder="タイトル" @input="inputTitle"></input>
+        <input type="text" class="input" placeholder="タイトル" @input="inputTitle">
       </div>
     </div>
     <div class="field">
@@ -32,7 +32,13 @@
     </div>
     <div class="field">
       <div class="control">
-        <Button label="送信" :on-click="submit" :disabled="!canSubmit" />
+        <Button v-if="!isSuccess" label="送信" :on-click="submit" :disabled="!canSubmit" />
+        <nuxt-link
+          v-if="isSuccess"
+          :to="`/user/${$route.params.userId}`"
+        >
+          ホームに戻る
+        </nuxt-link>
       </div>
     </div>
   </div>
