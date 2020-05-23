@@ -9,7 +9,7 @@
       </h2>
     </div>
     <button class="button is-primary is-medium" @click="clickShareButton">
-      このトーナメントの結果をシェアする
+      結果をツイートする
     </button>
     <div class="CompleteCapture__container">
       <div id="capture" class="CompleteCapture__frame">
@@ -24,14 +24,14 @@
       <div class="modal-card">
         <header class="modal-card-head">
           <p class="modal-card-title">
-            結果をシェアする
+            結果をツイートする
           </p>
           <button class="delete" aria-label="close" @click="closeModal" />
         </header>
         <section class="modal-card-body">
           <div class="field">
             <div class="control">
-              結果をシェアしますか？<br>
+              結果をツイートしますか？<br>
               このトーナメントを最大3人に回すことができます。<br>
               <span style="color: red">※ 回す場合はTwitterのアカウントIDを記入してください。</span>
             </div>
