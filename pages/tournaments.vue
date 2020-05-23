@@ -14,7 +14,7 @@
           <button class="delete" aria-label="close" @click="closeModal" />
         </header>
         <section class="modal-card-body">
-          トーナメントを作成しますか？　
+          トーナメントを作成しますか？
           <div class="warning-label">
             ※{{ selectedArtistName }}の全楽曲から32曲をランダムで抽出し、
             トーナメントを行います。
@@ -56,7 +56,6 @@ export default class TournamentsPage extends Vue {
   private selectedTournamentId = ''
   private selectedTournamentName = ''
   private selectedArtistName = ''
-  
 
   @TournamentStore.Getter('tournaments')
   tournaments!: FirestoreTournament[]
@@ -77,7 +76,7 @@ export default class TournamentsPage extends Vue {
     this.isModal = true
     this.selectedTournamentId = event.id
     this.selectedTournamentName = event.name
-    this.selectedArtistName = this.selectedTournamentName.replace("のトーナメント", "")
+    this.selectedArtistName = this.selectedTournamentName.replace('のトーナメント', '')
     console.log(this.selectedArtistName)
   }
 
