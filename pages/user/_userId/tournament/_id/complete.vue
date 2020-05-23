@@ -56,7 +56,7 @@
           </div>
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-success" @click="tweet">
+          <button class="button is-info" @click="tweet">
             ツイート
           </button>
           <button class="button" @click="closeModal">
