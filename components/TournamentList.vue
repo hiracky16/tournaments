@@ -8,15 +8,12 @@
         <div
           v-for="tournament in tournaments"
           :key="tournament.id"
+          class="panel-block"
+          @click="clickAction(tournament)"
         >
-          <div
-            class="panel-block"
-            @click="clickAction(tournament)"
-          >
-            {{ tournament.name }}
-            <div class="createdAt">
-              {{ tournamentCreatedAt(tournament) }}
-            </div>
+          {{ tournament.name }}
+          <div class="createdAt">
+            {{ tournamentCreatedAt(tournament) }}
           </div>
         </div>
       </nav>
@@ -68,7 +65,16 @@ export default class Tournament extends Vue {
 .panel-block {
   background-color: #fff;
   display: block;
+  border-bottom: none;
+  &:hover {
+    @media screen and (min-width: 769px) {
+      cursor: pointer;
+      background: #f5f5f5;
+    }
+  }
   .createdAt {
+    color: #666;
+    font-size: 0.8em;
     margin-right: 8px;
     float: right;
   }

@@ -1,12 +1,10 @@
 <template>
   <div class="container">
-    <div>
-      <img src="~/assets/logo_verticalpink.png" width="200px">
-      <h2 class="subtitle">
-        トーナメントで優勝を決める
-      </h2>
-      <Button label="ログイン" :on-click="twitterLogin" />
-    </div>
+    <img class="logo" src="~/assets/logo_verticalpink.png" width="200px">
+    <h2 class="subtitle">
+      トーナメントで優勝を決める
+    </h2>
+    <Button label="ログイン" :on-click="twitterLogin" />
   </div>
 </template>
 
@@ -50,32 +48,21 @@ export default class Index extends Vue {
 <style lang="scss" scoped>
 .container {
   margin: 0 auto;
-  min-height: 100vh;
+  height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
 }
 
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 6em;
-  color: #35495e;
-  letter-spacing: 1px;
+.logo {
+  margin-bottom: 30px;
 }
 
 .subtitle {
-  font-weight: 300;
-  font-size: 2.5em;
+  font-size: 1.5em;
   color: #526488;
   word-spacing: 5px;
   padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
 }
 </style>

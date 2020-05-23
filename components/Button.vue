@@ -47,6 +47,7 @@ export default class Button extends Vue {
   outline:solid 3px #ffa5a0;
   &.disabled {
     opacity: .5;
+    cursor: no-drop;
   }
   @media screen and (max-width: 768px) {
     padding: 14px 16px;
