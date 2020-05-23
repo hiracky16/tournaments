@@ -3,7 +3,7 @@
     <h1 class="finmessage">
       トーナメントの編集が完了しました。
     </h1>
-    <Button label="結果をツイートする" :on-click="clickShareButton" class="clickShareButton" />
+    <Button label="結果をツイートする" :on-click="clickShareButton" class="shareButton" />
     <div class="tournaments">
       <h2>
         {{ name }}
@@ -53,7 +53,7 @@
           </div>
           <div id="tournamentImage" />
           <footer class="modal-card-foot">
-            <button class="button is-success" @click="tweet">
+            <button class="button is-info" @click="tweet">
               ツイート
             </button>
             <button class="button" @click="closeModal">
@@ -211,12 +211,6 @@ export default class Home extends Vue {
 
 .shareButton {
   margin: 20px 0 40px;
-}
-
-.tournaments {
-  font-size: 24px;
-  float: center;
-  margin-bottom: 20px;
 }
 
 .CompleteCapture {

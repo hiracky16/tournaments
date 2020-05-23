@@ -99,6 +99,10 @@ html, body, #__nuxt, #__layout {
   margin-bottom: 30px;
 }
 
+.app-main {
+  flex: 1;
+}
+
 .app-footer {
   padding-top: 30px;
   margin-top: auto;

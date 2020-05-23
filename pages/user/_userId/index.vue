@@ -1,7 +1,7 @@
 <template>
   <div>
-    <section class="section">
-      <div class="container">
+    <section class="userCard">
+      <div>
         <div class="card">
           <div class="card-content">
             <div class="media">
@@ -86,6 +86,9 @@ export default class Home extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.userCard {
+  margin-top: 40px;
+}
 .Tournament {
   .Tournament_Search {
     display: block;
