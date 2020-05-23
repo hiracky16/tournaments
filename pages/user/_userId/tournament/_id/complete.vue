@@ -3,15 +3,12 @@
     <h1 class="finmessage">
       トーナメントの編集が完了しました。
     </h1>
-    <Button label="結果をツイートする" :on-click="clickShareButton" class="clickShareButton" />
+    <Button label="結果をツイートする" :on-click="clickShareButton" class="shareButton" />
     <div class="tournaments">
       <h2>
         {{ name }}
       </h2>
     </div>
-    <nuxt-link :to="`/user/${$route.params.userId}`" class="toHome">
-      ホームに戻る
-    </nuxt-link>
     <div :class="{ 'is-active': isModal }" class="modal">
       <div class="modal-background" />
       <div class="modal-card">
@@ -210,12 +207,6 @@ export default class Home extends Vue {
 
 .shareButton {
   margin: 20px 0 40px;
-}
-
-.tournaments {
-  font-size: 24px;
-  float: center;
-  margin-bottom: 20px;
 }
 
 .CompleteCapture {
