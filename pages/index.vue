@@ -2,7 +2,7 @@
   <div class="container">
     <img class="logo" src="~/assets/logo_verticalpink.png" width="200px">
     <h2 class="subtitle">
-      トーナメントで優勝を決める
+      あなたのオンリーワンを発掘
     </h2>
     <Button label="ログイン" :on-click="twitterLogin" />
   </div>
