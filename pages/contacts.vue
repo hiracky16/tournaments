@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1 class="title">
-      お問い合わせページ
+      お問い合わせ
     </h1>
     <Message class="successMessage" :is-display="isSuccess" display-message="お問い合わせが完了しました。" />
     <div class="field">
