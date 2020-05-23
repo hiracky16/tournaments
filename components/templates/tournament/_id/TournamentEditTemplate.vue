@@ -8,9 +8,7 @@
           </span>
         </div>
         <div class="TournamentEditTemplate__nav-left">
-          <button class="link-button" @click="confirmEdit">
-            トーナメントの編集を保存
-          </button>
+          <Button label="トーナメントの編集を保存" :on-click="confirmEdit" />
         </div>
       </div>
       <TournamentLayout :rounds="rounds" :is-editable="true" />
@@ -23,11 +21,12 @@ import Vue from 'vue'
 import { Component, Prop, namespace } from 'nuxt-property-decorator'
 import TournamentLayout from '~/components/TournamentLayout.vue'
 import { Round } from '~/models/tournament'
+import Button from '~/components/Button.vue'
 
 const RoundStore = namespace('rounds')
 
 @Component({
-  components: { TournamentLayout }
+  components: { TournamentLayout, Button }
 })
 export default class TournamentEditTemplate extends Vue {
   @Prop({
@@ -75,18 +74,6 @@ export default class TournamentEditTemplate extends Vue {
 }
 .link-nav {
   color: #666;
-  cursor: pointer;
-}
-.link-button {
-  display: inline-block;
-  padding: 10px 16px;
-  background: #f5576c;
-  background-image: linear-gradient(120deg, #fb93c7 0%, #f5576c 100%);
-  border: none;
-  color: #fff;
-  font-size: 1em;
-  font-weight: bold;
-  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
   cursor: pointer;
 }
 </style>

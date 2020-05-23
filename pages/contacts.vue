@@ -32,13 +32,7 @@
     </div>
     <div class="field">
       <div class="control">
-        <button
-          class="button is-primary is-medium"
-          :disabled="!canSubmit"
-          @click="submit"
-        >
-          送信
-        </button>
+        <Button label="送信" :on-click="submit" :disabled="!canSubmit" />
       </div>
     </div>
   </div>
@@ -48,12 +42,13 @@
 import Vue from 'vue'
 import { Component, namespace } from 'nuxt-property-decorator'
 import Message from '@/components/Message.vue'
+import Button from '@/components/Button.vue'
 import User from '~/models/User'
 import firebase from '@/plugins/firebase'
 const UserStore = namespace('users')
 
 @Component({
-  components: { Message }
+  components: { Message, Button }
 })
 export default class ContactPage extends Vue {
   private radioButtonValue = ''

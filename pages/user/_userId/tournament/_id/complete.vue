@@ -1,22 +1,20 @@
 <template>
-  <div>
+  <div class="container">
     <h1 class="finmessage">
       トーナメントの編集が完了しました。
     </h1>
+    <Button label="このトーナメントの結果をシェアする" :on-click="tweet" class="shareButton" />
     <div class="tournaments">
       <h2>
         {{ name }}
       </h2>
     </div>
-    <button @click="tweet">
-      このトーナメントの結果をシェアする
-    </button>
     <div class="CompleteCapture__container">
       <div id="capture" class="CompleteCapture__frame">
         <TournamentLayout :rounds="tournament.rounds" :is-editable="false" class="CompleteCapture__tournament" />
       </div>
     </div>
-    <nuxt-link :to="`/user/${$route.params.userId}`" class="button is-primary is-medium">
+    <nuxt-link :to="`/user/${$route.params.userId}`" class="toHome">
       ホームに戻る
     </nuxt-link>
   </div>
@@ -27,6 +25,7 @@ import Vue from 'vue'
 import { Component, namespace } from 'nuxt-property-decorator'
 import html2canvas from 'html2canvas'
 import TournamentLayout from '~/components/TournamentLayout.vue'
+import Button from '~/components/Button.vue'
 import User from '@/models/User'
 // FIXME: 一旦ハードコーディングしているが環境変数に逃がす
 const DOMAIN = 'https://akbtest-66d57.web.app'
@@ -35,7 +34,7 @@ const RoundStore = namespace('rounds')
 const UserStore = namespace('users')
 
 @Component({
-  components: { TournamentLayout },
+  components: { TournamentLayout, Button },
   middleware: ({ store, redirect, params }) => {
     const myUserId = store.getters['users/user']?.id
     if (myUserId !== params.userId) {
@@ -95,15 +94,19 @@ export default class Home extends Vue {
 }
 
 .finmessage {
-  font-size: 60px;
+  font-size: 40px;
   line-height: 100px;
   float: center;
 }
 
+.shareButton {
+  margin: 20px 0 40px;
+}
+
 .tournaments {
-  font-size: 30px;
-  line-height: 100px;
+  font-size: 24px;
   float: center;
+  margin-bottom: 20px;
 }
 
 .CompleteCapture {
@@ -111,6 +114,7 @@ export default class Home extends Vue {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    margin-bottom: 40px;
     max-height: 700px;
     @media screen and (max-width: 768px) {
       max-height: 620px;
@@ -134,6 +138,15 @@ export default class Home extends Vue {
   }
   &__tournament {
     overflow: visible;
+  }
+}
+
+.toHome {
+  color: #666;
+  transition: all .1s ease;
+  &:hover {
+    text-decoration: underline;
+    color: #f5576c;
   }
 }
 </style>
